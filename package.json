@@ -2,8 +2,10 @@
   "name": "pegasus-modal",
   "version": "1.0.0",
   "description": "Versatile modal component.",
-  "main": "index.js",
+  "main": "build/index.js",
+  "module": "build/index.esm.js",
   "scripts": {
+    "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,5 +20,17 @@
   "bugs": {
     "url": "https://github.com/akholodenko/pegasus-modal/issues"
   },
-  "homepage": "https://github.com/akholodenko/pegasus-modal#readme"
+  "homepage": "https://github.com/akholodenko/pegasus-modal#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.0",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.7.0",
+    "rollup": "^1.26.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.0",
+    "rollup-plugin-typescript2": "^0.25.2",
+    "typescript": "^3.7.2"
+  }
 }
