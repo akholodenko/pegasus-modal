@@ -24,11 +24,22 @@
     "url": "https://github.com/akholodenko/pegasus-modal/issues"
   },
   "homepage": "https://github.com/akholodenko/pegasus-modal#readme",
+  "peerDependencies": {
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.7.0",
     "@babel/core": "^7.7.0",
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-react": "^7.7.0",
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.4",
+    "@types/react-test-renderer": "^16.9.1",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-scripts-ts": "^3.1.0",
+    "react-test-renderer": "^16.11.0",
     "rollup": "^1.26.3",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
