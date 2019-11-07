@@ -37,7 +37,7 @@ var ExampleComponent = /** @class */ (function (_super) {
     ExampleComponent.prototype.render = function () {
         var text = this.props.text;
         return React.createElement("div", { style: { color: "red" } },
-            "Hello ",
+            "Hello there, ",
             text);
     };
     return ExampleComponent;
