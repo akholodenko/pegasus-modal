@@ -1,8 +1,11 @@
-import React from "react";
-import { ModalConfig } from "./interfaces/config";
+import React from 'react';
 export declare type Props = {
     config: ModalConfig;
 };
-export default class PegasusModal extends React.Component<Props> {
+export interface ModalConfig {
+    headerText: string;
+    bodyText: string;
+}
+export declare class PegasusModal extends React.Component<Props> {
     render(): JSX.Element;
 }

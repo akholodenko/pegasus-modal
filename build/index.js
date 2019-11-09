@@ -42,10 +42,10 @@ var PegasusModal = /** @class */ (function (_super) {
     }
     PegasusModal.prototype.render = function () {
         var config = this.props.config;
-        return React.createElement("div", { style: { color: "red" } }, config.bodyText);
+        return React.createElement("div", { style: { color: 'green' } }, config.bodyText);
     };
     return PegasusModal;
 }(React.Component));
 
-exports.default = PegasusModal;
+exports.PegasusModal = PegasusModal;
 //# sourceMappingURL=index.js.map
