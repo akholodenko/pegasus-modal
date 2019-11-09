@@ -1,11 +1,12 @@
-import React from "react"
+import React from "react";
+import { ModalConfig } from "./interfaces/config";
 
-export type Props = { text: string };
+export type Props = { config: ModalConfig };
 
-export default class ExampleComponent extends React.Component<Props> {
+export default class PegasusModal extends React.Component<Props> {
   render() {
-    const { text } = this.props;
+    const { config } = this.props;
 
-    return <div style={{ color: "red" }}>Hello there, {text}</div>;
+    return <div style={{ color: "red" }}>{config.bodyText}</div>;
   }
 }

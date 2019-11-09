@@ -35,19 +35,17 @@ function __extends(d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-var ExampleComponent = /** @class */ (function (_super) {
-    __extends(ExampleComponent, _super);
-    function ExampleComponent() {
+var PegasusModal = /** @class */ (function (_super) {
+    __extends(PegasusModal, _super);
+    function PegasusModal() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ExampleComponent.prototype.render = function () {
-        var text = this.props.text;
-        return React.createElement("div", { style: { color: "red" } },
-            "Hello there, ",
-            text);
+    PegasusModal.prototype.render = function () {
+        var config = this.props.config;
+        return React.createElement("div", { style: { color: "red" } }, config.bodyText);
     };
-    return ExampleComponent;
+    return PegasusModal;
 }(React.Component));
 
-exports.default = ExampleComponent;
+exports.default = PegasusModal;
 //# sourceMappingURL=index.js.map

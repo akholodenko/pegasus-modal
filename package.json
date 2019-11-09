@@ -6,6 +6,7 @@
   "module": "build/index.esm.js",
   "scripts": {
     "build": "rollup -c",
+    "watch": "watch 'yarn build' ./src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
@@ -46,5 +47,8 @@
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-typescript2": "^0.25.2",
     "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "watch": "^1.0.2"
   }
 }
