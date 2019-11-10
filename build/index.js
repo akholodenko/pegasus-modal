@@ -55,7 +55,7 @@ var setConfigDefaults = function (config) {
     return result;
 };
 
-var withData = function (WrappedComponent, data) { return function (props) { return React.createElement(WrappedComponent, __assign({}, props, data)); }; };
+var withData = function (WrappedComponent, data) { return function (props) { return React.createElement(WrappedComponent, __assign({}, props, { data: data })); }; };
 
 var PegasusModal = /** @class */ (function (_super) {
     __extends(PegasusModal, _super);
