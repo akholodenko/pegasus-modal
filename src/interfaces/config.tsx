@@ -1,5 +1,6 @@
 export interface ModalConfigInterface {
   isOpen?: boolean
-  headerText: string
-  bodyText: string
+  size?: string
+  data?: {}
+  screens?: any
 }
