@@ -1,4 +1,5 @@
-export interface ModalConfig {
+export interface ModalConfigInterface {
+    isOpen?: boolean;
     headerText: string;
     bodyText: string;
 }

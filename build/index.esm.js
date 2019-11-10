@@ -36,7 +36,12 @@ var PegasusModal = /** @class */ (function (_super) {
     }
     PegasusModal.prototype.render = function () {
         var config = this.props.config;
-        return React.createElement("div", { style: { color: 'green' } }, config.bodyText);
+        return (React.createElement("div", { style: { color: 'green' } },
+            config.bodyText,
+            " - interface export works",
+            React.createElement("br", null),
+            "isOpen: ",
+            config.isOpen ? 'true' : 'false'));
     };
     return PegasusModal;
 }(React.Component));

@@ -1,17 +1,20 @@
 import React from 'react'
-// import { ModalConfig } from './interfaces/config'
+import { ModalConfigInterface } from './interfaces/config'
 
-export type Props = { config: ModalConfig }
+type Props = { config: ModalConfigInterface }
 
-export interface ModalConfig {
-  headerText: string
-  bodyText: string
-}
-
-export class PegasusModal extends React.Component<Props> {
+class PegasusModal extends React.Component<Props> {
   render() {
     const { config } = this.props
 
-    return <div style={{ color: 'green' }}>{config.bodyText}</div>
+    return (
+      <div style={{ color: 'green' }}>
+        {config.bodyText} - interface export works
+        <br />
+        isOpen: {config.isOpen ? 'true' : 'false'}
+      </div>
+    )
   }
 }
+
+export { PegasusModal, ModalConfigInterface }
