@@ -1,6 +1,6 @@
 import { ModalConfigInterface } from '../interfaces/config'
 
-export const setConfigDefaults = (config: ModalConfigInterface) => {
+export const initConfigDefaults = (config: ModalConfigInterface) => {
   let result = { ...config }
 
   result.isOpen = result.isOpen === undefined ? false : result.isOpen

@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { ModalConfigInterface } from './interfaces/config'
-import { setConfigDefaults } from './utils/defaults'
+import { initConfigDefaults } from './utils/defaults'
 import withData from './components/withData'
 
 type Props = { config: ModalConfigInterface }
 
-class PegasusModal extends React.Component<Props> {
-  renderFirstScreen(configWithDefaults: ModalConfigInterface) {
+const PegasusModal: React.FC<Props> = ({ config }) => {
+  const [configWithDefaults, setConfigWithDefaults] = useState(
+    initConfigDefaults(config)
+  )
+
+  useEffect(() => {
+    setConfigWithDefaults({ ...configWithDefaults, isOpen: config.isOpen })
+  }, [config.isOpen])
+
+  const renderFirstScreen = (configWithDefaults: ModalConfigInterface) => {
     if (configWithDefaults.screens && configWithDefaults.screens.length) {
       const ScreenWithData = withData(
         configWithDefaults.screens[0],
@@ -18,18 +26,20 @@ class PegasusModal extends React.Component<Props> {
     return null
   }
 
-  render() {
-    const { config } = this.props
-    const configWithDefaults = setConfigDefaults(config)
-
-    console.log('config', configWithDefaults)
-
-    return (
-      <div style={{ color: 'green' }}>
-        {this.renderFirstScreen(configWithDefaults)}
-      </div>
-    )
+  const displayStyle = (isOpen?: boolean) => {
+    return isOpen ? 'block' : 'none'
   }
+
+  return (
+    <div
+      style={{
+        color: 'green',
+        display: displayStyle(configWithDefaults.isOpen)
+      }}
+    >
+      {renderFirstScreen(configWithDefaults)}
+    </div>
+  )
 }
 
 export { PegasusModal, ModalConfigInterface }

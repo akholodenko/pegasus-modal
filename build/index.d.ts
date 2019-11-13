@@ -3,8 +3,5 @@ import { ModalConfigInterface } from './interfaces/config';
 declare type Props = {
     config: ModalConfigInterface;
 };
-declare class PegasusModal extends React.Component<Props> {
-    renderFirstScreen(configWithDefaults: ModalConfigInterface): JSX.Element | null;
-    render(): JSX.Element;
-}
+declare const PegasusModal: React.FC<Props>;
 export { PegasusModal, ModalConfigInterface };

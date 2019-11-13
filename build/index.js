@@ -4,7 +4,8 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var React = _interopDefault(require('react'));
+var React = require('react');
+var React__default = _interopDefault(React);
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -20,20 +21,6 @@ MERCHANTABLITY OR NON-INFRINGEMENT.
 See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
-/* global Reflect, Promise */
-
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return extendStatics(d, b);
-};
-
-function __extends(d, b) {
-    extendStatics(d, b);
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-}
 
 var __assign = function() {
     __assign = Object.assign || function __assign(t) {
@@ -46,7 +33,7 @@ var __assign = function() {
     return __assign.apply(this, arguments);
 };
 
-var setConfigDefaults = function (config) {
+var initConfigDefaults = function (config) {
     var result = __assign({}, config);
     result.isOpen = result.isOpen === undefined ? false : result.isOpen;
     result.size = result.size === undefined ? 'full' : result.size;
@@ -55,28 +42,29 @@ var setConfigDefaults = function (config) {
     return result;
 };
 
-var withData = function (WrappedComponent, data) { return function (props) { return React.createElement(WrappedComponent, __assign({}, props, { data: data })); }; };
+var withData = function (WrappedComponent, data) { return function (props) { return React__default.createElement(WrappedComponent, __assign({}, props, { data: data })); }; };
 
-var PegasusModal = /** @class */ (function (_super) {
-    __extends(PegasusModal, _super);
-    function PegasusModal() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    PegasusModal.prototype.renderFirstScreen = function (configWithDefaults) {
+var PegasusModal = function (_a) {
+    var config = _a.config;
+    var _b = React.useState(initConfigDefaults(config)), configWithDefaults = _b[0], setConfigWithDefaults = _b[1];
+    React.useEffect(function () {
+        setConfigWithDefaults(__assign(__assign({}, configWithDefaults), { isOpen: config.isOpen }));
+    }, [config.isOpen]);
+    var renderFirstScreen = function (configWithDefaults) {
         if (configWithDefaults.screens && configWithDefaults.screens.length) {
             var ScreenWithData = withData(configWithDefaults.screens[0], configWithDefaults.data);
-            return React.createElement(ScreenWithData, null);
+            return React__default.createElement(ScreenWithData, null);
         }
         return null;
     };
-    PegasusModal.prototype.render = function () {
-        var config = this.props.config;
-        var configWithDefaults = setConfigDefaults(config);
-        console.log('config', configWithDefaults);
-        return (React.createElement("div", { style: { color: 'green' } }, this.renderFirstScreen(configWithDefaults)));
+    var displayStyle = function (isOpen) {
+        return isOpen ? 'block' : 'none';
     };
-    return PegasusModal;
-}(React.Component));
+    return (React__default.createElement("div", { style: {
+            color: 'green',
+            display: displayStyle(configWithDefaults.isOpen)
+        } }, renderFirstScreen(configWithDefaults)));
+};
 
 exports.PegasusModal = PegasusModal;
 //# sourceMappingURL=index.js.map
