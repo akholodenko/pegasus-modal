@@ -42,7 +42,43 @@ var initConfigDefaults = function (config) {
     return result;
 };
 
-var withData = function (WrappedComponent, data) { return function (props) { return React__default.createElement(WrappedComponent, __assign({}, props, { data: data })); }; };
+var ModalContainer = function (_a) {
+    var screens = _a.screens, data = _a.data, onClose = _a.onClose, isOpen = _a.isOpen;
+    var close = function () {
+        onClose();
+    };
+    var renderFirstScreen = function () {
+        if (screens && screens.length) {
+            var Screen_1 = screens[0];
+            return React__default.createElement(Screen_1, { data: data });
+        }
+        return null;
+    };
+    var displayStyle = function (isOpen) { return (isOpen ? 'block' : 'none'); };
+    var containerStyle = {
+        display: displayStyle(isOpen),
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#fff',
+        paddingTop: '50px'
+    };
+    var closeButtonStyle = {
+        position: 'absolute',
+        right: '15px',
+        top: '10px',
+        fontSize: '30px',
+        fontWeight: 100,
+        cursor: 'pointer'
+    };
+    return (React__default.createElement("div", { style: containerStyle },
+        React__default.createElement("div", { onClick: function () {
+                close();
+            }, style: closeButtonStyle }, "\u00D7"),
+        renderFirstScreen()));
+};
 
 var PegasusModal = function (_a) {
     var config = _a.config;
@@ -50,20 +86,12 @@ var PegasusModal = function (_a) {
     React.useEffect(function () {
         setConfigWithDefaults(__assign(__assign({}, configWithDefaults), { isOpen: config.isOpen }));
     }, [config.isOpen]);
-    var renderFirstScreen = function (configWithDefaults) {
-        if (configWithDefaults.screens && configWithDefaults.screens.length) {
-            var ScreenWithData = withData(configWithDefaults.screens[0], configWithDefaults.data);
-            return React__default.createElement(ScreenWithData, null);
+    var onClose = function () {
+        if (typeof configWithDefaults.onClose === 'function') {
+            configWithDefaults.onClose();
         }
-        return null;
     };
-    var displayStyle = function (isOpen) {
-        return isOpen ? 'block' : 'none';
-    };
-    return (React__default.createElement("div", { style: {
-            color: 'green',
-            display: displayStyle(configWithDefaults.isOpen)
-        } }, renderFirstScreen(configWithDefaults)));
+    return (React__default.createElement(ModalContainer, { data: configWithDefaults.data, screens: configWithDefaults.screens, onClose: onClose, isOpen: !!configWithDefaults.isOpen }));
 };
 
 exports.PegasusModal = PegasusModal;

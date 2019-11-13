@@ -4,4 +4,5 @@ export declare const initConfigDefaults: (config: ModalConfigInterface) => {
     size?: string | undefined;
     data?: {} | undefined;
     screens?: any;
+    onClose?: Function | undefined;
 };

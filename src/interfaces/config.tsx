@@ -3,4 +3,5 @@ export interface ModalConfigInterface {
   size?: string
   data?: {}
   screens?: any
+  onClose?: Function
 }
