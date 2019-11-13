@@ -22,7 +22,7 @@ class PegasusModal extends React.Component<Props> {
     const { config } = this.props
     const configWithDefaults = setConfigDefaults(config)
 
-    console.log('config', config, configWithDefaults)
+    console.log('config', configWithDefaults)
 
     return (
       <div style={{ color: 'green' }}>

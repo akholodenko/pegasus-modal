@@ -66,7 +66,7 @@ var PegasusModal = /** @class */ (function (_super) {
     PegasusModal.prototype.render = function () {
         var config = this.props.config;
         var configWithDefaults = setConfigDefaults(config);
-        console.log('config', config, configWithDefaults);
+        console.log('config', configWithDefaults);
         return (React.createElement("div", { style: { color: 'green' } }, this.renderFirstScreen(configWithDefaults)));
     };
     return PegasusModal;
