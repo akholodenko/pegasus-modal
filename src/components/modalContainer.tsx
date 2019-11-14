@@ -1,5 +1,5 @@
-import React from 'react'
-// import withData from '../components/withData'
+import React, { useState } from 'react'
+import Footer from './footer'
 
 type Props = {
   screens: any
@@ -18,43 +18,32 @@ const ModalContainer: React.FC<Props> = ({
   footer,
   startScreenIndex
 }) => {
+  const [currentScreenIndex, setCurrentScreenIndex] = useState(
+    startScreenIndex || 0
+  )
   const close = () => onClose()
 
-  const renderFirstScreen = () =>
-    screens && screens.length
-      ? renderScreen(screens[startScreenIndex || 0], startScreenIndex || 0)
-      : null
-
   const renderScreen = (Screen: any, index: number) => {
-    if (Screen) {
-      return (
-        <Screen
-          data={data}
-          isFirstScreen={isFirstScreen(index)}
-          isLastScreen={isLastScreen(index)}
-          isOpen={isOpen}
-        />
-      )
-    }
-
-    return null
-  }
-
-  const renderFooter = () => {
-    switch (footer) {
-      case 'sticky':
-        return <div>sticky footer</div>
-      case 'none':
-        return <div>no footer</div>
-      case 'inline':
-      default:
-        return <div>inline footer</div>
-    }
+    return (
+      <Screen
+        data={data}
+        isFirstScreen={isFirstScreen(index)}
+        isLastScreen={isLastScreen(index)}
+        isOpen={isOpen}
+      />
+    )
   }
 
   const displayStyle = (isOpen?: boolean) => (isOpen ? 'block' : 'none')
   const isFirstScreen = (index: number) => index === 0
   const isLastScreen = (index: number) => index === screens.length - 1
+  const onNext = () => {
+    setCurrentScreenIndex(currentScreenIndex + 1)
+  }
+
+  const onPrev = () => {
+    setCurrentScreenIndex(currentScreenIndex - 1)
+  }
 
   const containerStyle: React.CSSProperties = {
     display: displayStyle(isOpen),
@@ -86,8 +75,18 @@ const ModalContainer: React.FC<Props> = ({
       >
         &times;
       </div>
-      {renderFirstScreen()}
-      {renderFooter()}
+      {screens &&
+        screens.length &&
+        renderScreen(screens[currentScreenIndex], currentScreenIndex)}
+      {
+        <Footer
+          type={footer || 'inline'}
+          isFirstScreen={isFirstScreen(currentScreenIndex)}
+          isLastScreen={isLastScreen(currentScreenIndex)}
+          onNext={onNext}
+          onPrev={onPrev}
+        />
+      }
     </div>
   )
 }
