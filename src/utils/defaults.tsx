@@ -7,6 +7,7 @@ export const initConfigDefaults = (config: ModalConfigInterface) => {
   result.size = result.size === undefined ? 'full' : result.size
   result.data = result.data === undefined ? {} : result.data
   result.screens = result.screens === undefined ? [] : result.screens
+  result.onOpen = result.onOpen === undefined ? () => {} : result.onOpen
 
   return result
 }

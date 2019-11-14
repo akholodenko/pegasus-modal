@@ -12,6 +12,10 @@ const PegasusModal: React.FC<Props> = ({ config }) => {
 
   useEffect(() => {
     setConfigWithDefaults({ ...configWithDefaults, isOpen: config.isOpen })
+
+    if (config.isOpen && configWithDefaults.onOpen) {
+      configWithDefaults.onOpen()
+    }
   }, [config.isOpen])
 
   const onClose = () => {

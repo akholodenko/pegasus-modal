@@ -3,5 +3,6 @@ export interface ModalConfigInterface {
     size?: string;
     data?: {};
     screens?: any;
+    onOpen?: Function;
     onClose?: Function;
 }

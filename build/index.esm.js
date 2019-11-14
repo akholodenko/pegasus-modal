@@ -32,6 +32,7 @@ var initConfigDefaults = function (config) {
     result.size = result.size === undefined ? 'full' : result.size;
     result.data = result.data === undefined ? {} : result.data;
     result.screens = result.screens === undefined ? [] : result.screens;
+    result.onOpen = result.onOpen === undefined ? function () { } : result.onOpen;
     return result;
 };
 
@@ -78,6 +79,9 @@ var PegasusModal = function (_a) {
     var _b = useState(initConfigDefaults(config)), configWithDefaults = _b[0], setConfigWithDefaults = _b[1];
     useEffect(function () {
         setConfigWithDefaults(__assign(__assign({}, configWithDefaults), { isOpen: config.isOpen }));
+        if (config.isOpen && configWithDefaults.onOpen) {
+            configWithDefaults.onOpen();
+        }
     }, [config.isOpen]);
     var onClose = function () {
         if (typeof configWithDefaults.onClose === 'function') {
