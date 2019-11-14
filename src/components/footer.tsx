@@ -4,16 +4,16 @@ type Props = {
   type: string
   isFirstScreen: boolean
   isLastScreen: boolean
-  onNext: Function
-  onPrev: Function
+  next: Function
+  prev: Function
 }
 
 const Footer: React.FC<Props> = ({
   type,
   isFirstScreen,
   isLastScreen,
-  onNext,
-  onPrev
+  next,
+  prev
 }) => {
   const stickyFooterStyle: React.CSSProperties = {
     position: 'absolute',
@@ -28,8 +28,8 @@ const Footer: React.FC<Props> = ({
   const footerContent = () => {
     return (
       <div>
-        {!isFirstScreen && <button onClick={() => onPrev()}>prev</button>}
-        {!isLastScreen && <button onClick={() => onNext()}>next</button>}
+        {!isFirstScreen && <button onClick={() => prev()}>prev</button>}
+        {!isLastScreen && <button onClick={() => next()}>next</button>}
       </div>
     )
   }

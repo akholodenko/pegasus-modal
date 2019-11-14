@@ -6,6 +6,8 @@ export declare const initConfigDefaults: (config: ModalConfigInterface) => {
     screens?: any;
     onOpen?: Function | undefined;
     onClose?: Function | undefined;
+    onNext?: Function | undefined;
+    onPrev?: Function | undefined;
     footer?: string | undefined;
     startScreenIndex?: number | undefined;
 };

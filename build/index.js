@@ -40,6 +40,7 @@ var initConfigDefaults = function (config) {
     result.data = result.data === undefined ? {} : result.data;
     result.screens = result.screens === undefined ? [] : result.screens;
     result.onOpen = result.onOpen === undefined ? function () { } : result.onOpen;
+    result.onNext = result.onNext === undefined ? function () { } : result.onNext;
     result.footer = result.footer === undefined ? 'inline' : result.footer;
     result.startScreenIndex =
         result.startScreenIndex === undefined ? 0 : result.startScreenIndex;
@@ -47,7 +48,7 @@ var initConfigDefaults = function (config) {
 };
 
 var Footer = function (_a) {
-    var type = _a.type, isFirstScreen = _a.isFirstScreen, isLastScreen = _a.isLastScreen, onNext = _a.onNext, onPrev = _a.onPrev;
+    var type = _a.type, isFirstScreen = _a.isFirstScreen, isLastScreen = _a.isLastScreen, next = _a.next, prev = _a.prev;
     var stickyFooterStyle = {
         position: 'absolute',
         bottom: '50px',
@@ -59,8 +60,8 @@ var Footer = function (_a) {
     };
     var footerContent = function () {
         return (React__default.createElement("div", null,
-            !isFirstScreen && React__default.createElement("button", { onClick: function () { return onPrev(); } }, "prev"),
-            !isLastScreen && React__default.createElement("button", { onClick: function () { return onNext(); } }, "next")));
+            !isFirstScreen && React__default.createElement("button", { onClick: function () { return prev(); } }, "prev"),
+            !isLastScreen && React__default.createElement("button", { onClick: function () { return next(); } }, "next")));
     };
     var footerByType = function (type) {
         switch (type) {
@@ -77,7 +78,7 @@ var Footer = function (_a) {
 };
 
 var ModalContainer = function (_a) {
-    var screens = _a.screens, data = _a.data, onClose = _a.onClose, isOpen = _a.isOpen, footer = _a.footer, startScreenIndex = _a.startScreenIndex;
+    var screens = _a.screens, data = _a.data, onClose = _a.onClose, onNext = _a.onNext, onPrev = _a.onPrev, isOpen = _a.isOpen, footer = _a.footer, startScreenIndex = _a.startScreenIndex;
     var _b = React.useState(startScreenIndex || 0), currentScreenIndex = _b[0], setCurrentScreenIndex = _b[1];
     var close = function () { return onClose(); };
     var renderScreen = function (Screen, index) {
@@ -86,10 +87,12 @@ var ModalContainer = function (_a) {
     var displayStyle = function (isOpen) { return (isOpen ? 'block' : 'none'); };
     var isFirstScreen = function (index) { return index === 0; };
     var isLastScreen = function (index) { return index === screens.length - 1; };
-    var onNext = function () {
+    var next = function () {
+        onNext({ fromIndex: currentScreenIndex, toIndex: currentScreenIndex + 1 });
         setCurrentScreenIndex(currentScreenIndex + 1);
     };
-    var onPrev = function () {
+    var prev = function () {
+        onPrev({ fromIndex: currentScreenIndex, toIndex: currentScreenIndex - 1 });
         setCurrentScreenIndex(currentScreenIndex - 1);
     };
     var containerStyle = {
@@ -117,7 +120,7 @@ var ModalContainer = function (_a) {
         screens &&
             screens.length &&
             renderScreen(screens[currentScreenIndex], currentScreenIndex),
-        React__default.createElement(Footer, { type: footer || 'inline', isFirstScreen: isFirstScreen(currentScreenIndex), isLastScreen: isLastScreen(currentScreenIndex), onNext: onNext, onPrev: onPrev })));
+        React__default.createElement(Footer, { type: footer || 'inline', isFirstScreen: isFirstScreen(currentScreenIndex), isLastScreen: isLastScreen(currentScreenIndex), next: next, prev: prev })));
 };
 
 var PegasusModal = function (_a) {
@@ -134,7 +137,17 @@ var PegasusModal = function (_a) {
             configWithDefaults.onClose();
         }
     };
-    return (React__default.createElement(ModalContainer, { data: configWithDefaults.data, screens: configWithDefaults.screens, onClose: onClose, isOpen: !!configWithDefaults.isOpen, footer: configWithDefaults.footer, startScreenIndex: configWithDefaults.startScreenIndex }));
+    var onNext = function (data) {
+        if (typeof configWithDefaults.onNext === 'function') {
+            configWithDefaults.onNext(data);
+        }
+    };
+    var onPrev = function (data) {
+        if (typeof configWithDefaults.onPrev === 'function') {
+            configWithDefaults.onPrev(data);
+        }
+    };
+    return (React__default.createElement(ModalContainer, { data: configWithDefaults.data, screens: configWithDefaults.screens, onClose: onClose, onNext: onNext, onPrev: onPrev, isOpen: !!configWithDefaults.isOpen, footer: configWithDefaults.footer, startScreenIndex: configWithDefaults.startScreenIndex }));
 };
 
 exports.PegasusModal = PegasusModal;

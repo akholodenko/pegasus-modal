@@ -3,8 +3,8 @@ declare type Props = {
     type: string;
     isFirstScreen: boolean;
     isLastScreen: boolean;
-    onNext: Function;
-    onPrev: Function;
+    next: Function;
+    prev: Function;
 };
 declare const Footer: React.FC<Props>;
 export default Footer;

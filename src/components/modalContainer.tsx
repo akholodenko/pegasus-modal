@@ -5,6 +5,8 @@ type Props = {
   screens: any
   data?: {}
   onClose: Function
+  onNext: Function
+  onPrev: Function
   isOpen: boolean
   footer?: string
   startScreenIndex?: number
@@ -14,6 +16,8 @@ const ModalContainer: React.FC<Props> = ({
   screens,
   data,
   onClose,
+  onNext,
+  onPrev,
   isOpen,
   footer,
   startScreenIndex
@@ -37,11 +41,14 @@ const ModalContainer: React.FC<Props> = ({
   const displayStyle = (isOpen?: boolean) => (isOpen ? 'block' : 'none')
   const isFirstScreen = (index: number) => index === 0
   const isLastScreen = (index: number) => index === screens.length - 1
-  const onNext = () => {
+
+  const next = () => {
+    onNext({ fromIndex: currentScreenIndex, toIndex: currentScreenIndex + 1 })
     setCurrentScreenIndex(currentScreenIndex + 1)
   }
 
-  const onPrev = () => {
+  const prev = () => {
+    onPrev({ fromIndex: currentScreenIndex, toIndex: currentScreenIndex - 1 })
     setCurrentScreenIndex(currentScreenIndex - 1)
   }
 
@@ -83,8 +90,8 @@ const ModalContainer: React.FC<Props> = ({
           type={footer || 'inline'}
           isFirstScreen={isFirstScreen(currentScreenIndex)}
           isLastScreen={isLastScreen(currentScreenIndex)}
-          onNext={onNext}
-          onPrev={onPrev}
+          next={next}
+          prev={prev}
         />
       }
     </div>

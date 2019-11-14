@@ -24,11 +24,25 @@ const PegasusModal: React.FC<Props> = ({ config }) => {
     }
   }
 
+  const onNext = (data: {}) => {
+    if (typeof configWithDefaults.onNext === 'function') {
+      configWithDefaults.onNext(data)
+    }
+  }
+
+  const onPrev = (data: {}) => {
+    if (typeof configWithDefaults.onPrev === 'function') {
+      configWithDefaults.onPrev(data)
+    }
+  }
+
   return (
     <ModalContainer
       data={configWithDefaults.data}
       screens={configWithDefaults.screens}
       onClose={onClose}
+      onNext={onNext}
+      onPrev={onPrev}
       isOpen={!!configWithDefaults.isOpen}
       footer={configWithDefaults.footer}
       startScreenIndex={configWithDefaults.startScreenIndex}

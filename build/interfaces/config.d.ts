@@ -5,6 +5,8 @@ export interface ModalConfigInterface {
     screens?: any;
     onOpen?: Function;
     onClose?: Function;
+    onNext?: Function;
+    onPrev?: Function;
     footer?: string;
     startScreenIndex?: number;
 }
