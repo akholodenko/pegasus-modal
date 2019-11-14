@@ -9,20 +9,29 @@ const ModalContainer: React.FC<Props> = ({
   onClose,
   isOpen
 }) => {
-  const close = () => {
-    onClose()
-  }
+  const close = () => onClose()
 
-  const renderFirstScreen = () => {
-    if (screens && screens.length) {
-      const Screen = screens[0]
-      return <Screen data={data} />
+  const renderFirstScreen = () =>
+    screens && screens.length ? renderScreen(screens[0], 0) : null
+
+  const renderScreen = (Screen: any, index: Number) => {
+    if (Screen) {
+      return (
+        <Screen
+          data={data}
+          isFirstScreen={isFirstScreen(index)}
+          isLastScreen={isLastScreen(index)}
+          isOpen={isOpen}
+        />
+      )
     }
 
     return null
   }
 
   const displayStyle = (isOpen?: boolean) => (isOpen ? 'block' : 'none')
+  const isFirstScreen = (index: Number) => index === 0
+  const isLastScreen = (index: Number) => index === screens.length - 1
 
   const containerStyle: React.CSSProperties = {
     display: displayStyle(isOpen),

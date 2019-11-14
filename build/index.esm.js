@@ -38,17 +38,19 @@ var initConfigDefaults = function (config) {
 
 var ModalContainer = function (_a) {
     var screens = _a.screens, data = _a.data, onClose = _a.onClose, isOpen = _a.isOpen;
-    var close = function () {
-        onClose();
-    };
+    var close = function () { return onClose(); };
     var renderFirstScreen = function () {
-        if (screens && screens.length) {
-            var Screen_1 = screens[0];
-            return React.createElement(Screen_1, { data: data });
+        return screens && screens.length ? renderScreen(screens[0], 0) : null;
+    };
+    var renderScreen = function (Screen, index) {
+        if (Screen) {
+            return (React.createElement(Screen, { data: data, isFirstScreen: isFirstScreen(index), isLastScreen: isLastScreen(index), isOpen: isOpen }));
         }
         return null;
     };
     var displayStyle = function (isOpen) { return (isOpen ? 'block' : 'none'); };
+    var isFirstScreen = function (index) { return index === 0; };
+    var isLastScreen = function (index) { return index === screens.length - 1; };
     var containerStyle = {
         display: displayStyle(isOpen),
         position: 'fixed',
