@@ -82,7 +82,7 @@ var ModalContainer = function (_a) {
     var _b = React.useState(startScreenIndex || 0), currentScreenIndex = _b[0], setCurrentScreenIndex = _b[1];
     var close = function () { return onClose(); };
     var renderScreen = function (Screen, index) {
-        return (React__default.createElement(Screen, { data: data, isFirstScreen: isFirstScreen(index), isLastScreen: isLastScreen(index), isOpen: isOpen }));
+        return (React__default.createElement(Screen, { data: data, isFirstScreen: isFirstScreen(index), isLastScreen: isLastScreen(index), isOpen: isOpen, next: next, prev: prev }));
     };
     var displayStyle = function (isOpen) { return (isOpen ? 'block' : 'none'); };
     var isFirstScreen = function (index) { return index === 0; };

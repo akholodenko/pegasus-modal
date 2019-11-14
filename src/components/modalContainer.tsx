@@ -34,6 +34,8 @@ const ModalContainer: React.FC<Props> = ({
         isFirstScreen={isFirstScreen(index)}
         isLastScreen={isLastScreen(index)}
         isOpen={isOpen}
+        next={next}
+        prev={prev}
       />
     )
   }
