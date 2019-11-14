@@ -4,6 +4,7 @@ declare type Props = {
     data?: {};
     onClose: Function;
     isOpen: boolean;
+    footer?: string;
 };
 declare const ModalContainer: React.FC<Props>;
 export default ModalContainer;

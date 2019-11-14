@@ -30,6 +30,7 @@ const PegasusModal: React.FC<Props> = ({ config }) => {
       screens={configWithDefaults.screens}
       onClose={onClose}
       isOpen={!!configWithDefaults.isOpen}
+      footer={configWithDefaults.footer}
     />
   )
 }

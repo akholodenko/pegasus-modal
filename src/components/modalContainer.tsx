@@ -1,20 +1,27 @@
 import React from 'react'
 // import withData from '../components/withData'
 
-type Props = { screens: any; data?: {}; onClose: Function; isOpen: boolean }
+type Props = {
+  screens: any
+  data?: {}
+  onClose: Function
+  isOpen: boolean
+  footer?: string
+}
 
 const ModalContainer: React.FC<Props> = ({
   screens,
   data,
   onClose,
-  isOpen
+  isOpen,
+  footer
 }) => {
   const close = () => onClose()
 
   const renderFirstScreen = () =>
     screens && screens.length ? renderScreen(screens[0], 0) : null
 
-  const renderScreen = (Screen: any, index: Number) => {
+  const renderScreen = (Screen: any, index: number) => {
     if (Screen) {
       return (
         <Screen
@@ -29,9 +36,21 @@ const ModalContainer: React.FC<Props> = ({
     return null
   }
 
+  const renderFooter = () => {
+    switch (footer) {
+      case 'sticky':
+        return <div>sticky footer</div>
+      case 'none':
+        return <div>no footer</div>
+      case 'inline':
+      default:
+        return <div>inline footer</div>
+    }
+  }
+
   const displayStyle = (isOpen?: boolean) => (isOpen ? 'block' : 'none')
-  const isFirstScreen = (index: Number) => index === 0
-  const isLastScreen = (index: Number) => index === screens.length - 1
+  const isFirstScreen = (index: number) => index === 0
+  const isLastScreen = (index: number) => index === screens.length - 1
 
   const containerStyle: React.CSSProperties = {
     display: displayStyle(isOpen),
@@ -64,6 +83,7 @@ const ModalContainer: React.FC<Props> = ({
         &times;
       </div>
       {renderFirstScreen()}
+      {renderFooter()}
     </div>
   )
 }

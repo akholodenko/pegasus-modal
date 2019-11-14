@@ -8,6 +8,7 @@ export const initConfigDefaults = (config: ModalConfigInterface) => {
   result.data = result.data === undefined ? {} : result.data
   result.screens = result.screens === undefined ? [] : result.screens
   result.onOpen = result.onOpen === undefined ? () => {} : result.onOpen
+  result.footer = result.footer === undefined ? 'inline' : result.footer
 
   return result
 }

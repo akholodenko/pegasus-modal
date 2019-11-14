@@ -5,4 +5,5 @@ export interface ModalConfigInterface {
   screens?: any
   onOpen?: Function
   onClose?: Function
+  footer?: string // inline | sticky | none
 }

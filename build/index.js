@@ -40,11 +40,12 @@ var initConfigDefaults = function (config) {
     result.data = result.data === undefined ? {} : result.data;
     result.screens = result.screens === undefined ? [] : result.screens;
     result.onOpen = result.onOpen === undefined ? function () { } : result.onOpen;
+    result.footer = result.footer === undefined ? 'inline' : result.footer;
     return result;
 };
 
 var ModalContainer = function (_a) {
-    var screens = _a.screens, data = _a.data, onClose = _a.onClose, isOpen = _a.isOpen;
+    var screens = _a.screens, data = _a.data, onClose = _a.onClose, isOpen = _a.isOpen, footer = _a.footer;
     var close = function () { return onClose(); };
     var renderFirstScreen = function () {
         return screens && screens.length ? renderScreen(screens[0], 0) : null;
@@ -54,6 +55,17 @@ var ModalContainer = function (_a) {
             return (React__default.createElement(Screen, { data: data, isFirstScreen: isFirstScreen(index), isLastScreen: isLastScreen(index), isOpen: isOpen }));
         }
         return null;
+    };
+    var renderFooter = function () {
+        switch (footer) {
+            case 'sticky':
+                return React__default.createElement("div", null, "sticky footer");
+            case 'none':
+                return React__default.createElement("div", null, "no footer");
+            case 'inline':
+            default:
+                return React__default.createElement("div", null, "inline footer");
+        }
     };
     var displayStyle = function (isOpen) { return (isOpen ? 'block' : 'none'); };
     var isFirstScreen = function (index) { return index === 0; };
@@ -80,7 +92,8 @@ var ModalContainer = function (_a) {
         React__default.createElement("div", { onClick: function () {
                 close();
             }, style: closeButtonStyle }, "\u00D7"),
-        renderFirstScreen()));
+        renderFirstScreen(),
+        renderFooter()));
 };
 
 var PegasusModal = function (_a) {
@@ -97,7 +110,7 @@ var PegasusModal = function (_a) {
             configWithDefaults.onClose();
         }
     };
-    return (React__default.createElement(ModalContainer, { data: configWithDefaults.data, screens: configWithDefaults.screens, onClose: onClose, isOpen: !!configWithDefaults.isOpen }));
+    return (React__default.createElement(ModalContainer, { data: configWithDefaults.data, screens: configWithDefaults.screens, onClose: onClose, isOpen: !!configWithDefaults.isOpen, footer: configWithDefaults.footer }));
 };
 
 exports.PegasusModal = PegasusModal;
