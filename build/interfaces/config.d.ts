@@ -6,4 +6,5 @@ export interface ModalConfigInterface {
     onOpen?: Function;
     onClose?: Function;
     footer?: string;
+    startScreenIndex?: number;
 }

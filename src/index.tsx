@@ -31,6 +31,7 @@ const PegasusModal: React.FC<Props> = ({ config }) => {
       onClose={onClose}
       isOpen={!!configWithDefaults.isOpen}
       footer={configWithDefaults.footer}
+      startScreenIndex={configWithDefaults.startScreenIndex}
     />
   )
 }

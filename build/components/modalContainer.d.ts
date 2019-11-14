@@ -5,6 +5,7 @@ declare type Props = {
     onClose: Function;
     isOpen: boolean;
     footer?: string;
+    startScreenIndex?: number;
 };
 declare const ModalContainer: React.FC<Props>;
 export default ModalContainer;

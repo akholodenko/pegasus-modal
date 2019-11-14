@@ -41,14 +41,18 @@ var initConfigDefaults = function (config) {
     result.screens = result.screens === undefined ? [] : result.screens;
     result.onOpen = result.onOpen === undefined ? function () { } : result.onOpen;
     result.footer = result.footer === undefined ? 'inline' : result.footer;
+    result.startScreenIndex =
+        result.startScreenIndex === undefined ? 0 : result.startScreenIndex;
     return result;
 };
 
 var ModalContainer = function (_a) {
-    var screens = _a.screens, data = _a.data, onClose = _a.onClose, isOpen = _a.isOpen, footer = _a.footer;
+    var screens = _a.screens, data = _a.data, onClose = _a.onClose, isOpen = _a.isOpen, footer = _a.footer, startScreenIndex = _a.startScreenIndex;
     var close = function () { return onClose(); };
     var renderFirstScreen = function () {
-        return screens && screens.length ? renderScreen(screens[0], 0) : null;
+        return screens && screens.length
+            ? renderScreen(screens[startScreenIndex || 0], startScreenIndex || 0)
+            : null;
     };
     var renderScreen = function (Screen, index) {
         if (Screen) {
@@ -110,7 +114,7 @@ var PegasusModal = function (_a) {
             configWithDefaults.onClose();
         }
     };
-    return (React__default.createElement(ModalContainer, { data: configWithDefaults.data, screens: configWithDefaults.screens, onClose: onClose, isOpen: !!configWithDefaults.isOpen, footer: configWithDefaults.footer }));
+    return (React__default.createElement(ModalContainer, { data: configWithDefaults.data, screens: configWithDefaults.screens, onClose: onClose, isOpen: !!configWithDefaults.isOpen, footer: configWithDefaults.footer, startScreenIndex: configWithDefaults.startScreenIndex }));
 };
 
 exports.PegasusModal = PegasusModal;

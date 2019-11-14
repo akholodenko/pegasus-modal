@@ -7,6 +7,7 @@ type Props = {
   onClose: Function
   isOpen: boolean
   footer?: string
+  startScreenIndex?: number
 }
 
 const ModalContainer: React.FC<Props> = ({
@@ -14,12 +15,15 @@ const ModalContainer: React.FC<Props> = ({
   data,
   onClose,
   isOpen,
-  footer
+  footer,
+  startScreenIndex
 }) => {
   const close = () => onClose()
 
   const renderFirstScreen = () =>
-    screens && screens.length ? renderScreen(screens[0], 0) : null
+    screens && screens.length
+      ? renderScreen(screens[startScreenIndex || 0], startScreenIndex || 0)
+      : null
 
   const renderScreen = (Screen: any, index: number) => {
     if (Screen) {
