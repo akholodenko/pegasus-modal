@@ -25,17 +25,19 @@ const ModalContainer: React.FC<Props> = ({
   const [currentScreenIndex, setCurrentScreenIndex] = useState(
     startScreenIndex || 0
   )
+  const [inputData, setInputData] = useState(data)
   const close = () => onClose()
 
   const renderScreen = (Screen: any, index: number) => {
     return (
       <Screen
-        data={data}
+        data={inputData}
         isFirstScreen={isFirstScreen(index)}
         isLastScreen={isLastScreen(index)}
         isOpen={isOpen}
         next={next}
         prev={prev}
+        updateData={updateData}
       />
     )
   }
@@ -52,6 +54,10 @@ const ModalContainer: React.FC<Props> = ({
   const prev = () => {
     onPrev({ fromIndex: currentScreenIndex, toIndex: currentScreenIndex - 1 })
     setCurrentScreenIndex(currentScreenIndex - 1)
+  }
+
+  const updateData = (newData: {}) => {
+    setInputData(newData)
   }
 
   const containerStyle: React.CSSProperties = {

@@ -80,9 +80,10 @@ var Footer = function (_a) {
 var ModalContainer = function (_a) {
     var screens = _a.screens, data = _a.data, onClose = _a.onClose, onNext = _a.onNext, onPrev = _a.onPrev, isOpen = _a.isOpen, footer = _a.footer, startScreenIndex = _a.startScreenIndex;
     var _b = React.useState(startScreenIndex || 0), currentScreenIndex = _b[0], setCurrentScreenIndex = _b[1];
+    var _c = React.useState(data), inputData = _c[0], setInputData = _c[1];
     var close = function () { return onClose(); };
     var renderScreen = function (Screen, index) {
-        return (React__default.createElement(Screen, { data: data, isFirstScreen: isFirstScreen(index), isLastScreen: isLastScreen(index), isOpen: isOpen, next: next, prev: prev }));
+        return (React__default.createElement(Screen, { data: inputData, isFirstScreen: isFirstScreen(index), isLastScreen: isLastScreen(index), isOpen: isOpen, next: next, prev: prev, updateData: updateData }));
     };
     var displayStyle = function (isOpen) { return (isOpen ? 'block' : 'none'); };
     var isFirstScreen = function (index) { return index === 0; };
@@ -94,6 +95,9 @@ var ModalContainer = function (_a) {
     var prev = function () {
         onPrev({ fromIndex: currentScreenIndex, toIndex: currentScreenIndex - 1 });
         setCurrentScreenIndex(currentScreenIndex - 1);
+    };
+    var updateData = function (newData) {
+        setInputData(newData);
     };
     var containerStyle = {
         display: displayStyle(isOpen),
