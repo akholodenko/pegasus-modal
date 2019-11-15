@@ -74,7 +74,10 @@ var ModalContainer = function (_a) {
     var screens = _a.screens, data = _a.data, onClose = _a.onClose, onNext = _a.onNext, onPrev = _a.onPrev, isOpen = _a.isOpen, footer = _a.footer, startScreenIndex = _a.startScreenIndex;
     var _b = useState(startScreenIndex || 0), currentScreenIndex = _b[0], setCurrentScreenIndex = _b[1];
     var _c = useState(data), inputData = _c[0], setInputData = _c[1];
-    var close = function () { return onClose(); };
+    useEffect(function () {
+        setCurrentScreenIndex(startScreenIndex || 0);
+    }, [startScreenIndex]);
+    var close = function () { return onClose(__assign({}, inputData)); };
     var renderScreen = function (Screen, index) {
         return (React.createElement(Screen, { data: inputData, isFirstScreen: isFirstScreen(index), isLastScreen: isLastScreen(index), isOpen: isOpen, next: next, prev: prev, updateData: updateData }));
     };
@@ -82,11 +85,11 @@ var ModalContainer = function (_a) {
     var isFirstScreen = function (index) { return index === 0; };
     var isLastScreen = function (index) { return index === screens.length - 1; };
     var next = function () {
-        onNext({ fromIndex: currentScreenIndex, toIndex: currentScreenIndex + 1 });
+        onNext(__assign(__assign({}, inputData), { fromIndex: currentScreenIndex, toIndex: currentScreenIndex + 1 }));
         setCurrentScreenIndex(currentScreenIndex + 1);
     };
     var prev = function () {
-        onPrev({ fromIndex: currentScreenIndex, toIndex: currentScreenIndex - 1 });
+        onPrev(__assign(__assign({}, inputData), { fromIndex: currentScreenIndex, toIndex: currentScreenIndex - 1 }));
         setCurrentScreenIndex(currentScreenIndex - 1);
     };
     var updateData = function (newData) {
@@ -126,12 +129,13 @@ var PegasusModal = function (_a) {
     useEffect(function () {
         setConfigWithDefaults(__assign(__assign({}, configWithDefaults), { isOpen: config.isOpen }));
         if (config.isOpen && configWithDefaults.onOpen) {
-            configWithDefaults.onOpen();
+            console.log('configWithDefaults', configWithDefaults.startScreenIndex);
+            configWithDefaults.onOpen(configWithDefaults.data);
         }
     }, [config.isOpen]);
-    var onClose = function () {
+    var onClose = function (data) {
         if (typeof configWithDefaults.onClose === 'function') {
-            configWithDefaults.onClose();
+            configWithDefaults.onClose(data);
         }
     };
     var onNext = function (data) {

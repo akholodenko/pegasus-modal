@@ -14,13 +14,14 @@ const PegasusModal: React.FC<Props> = ({ config }) => {
     setConfigWithDefaults({ ...configWithDefaults, isOpen: config.isOpen })
 
     if (config.isOpen && configWithDefaults.onOpen) {
-      configWithDefaults.onOpen()
+      console.log('configWithDefaults', configWithDefaults.startScreenIndex)
+      configWithDefaults.onOpen(configWithDefaults.data)
     }
   }, [config.isOpen])
 
-  const onClose = () => {
+  const onClose = (data: {}) => {
     if (typeof configWithDefaults.onClose === 'function') {
-      configWithDefaults.onClose()
+      configWithDefaults.onClose(data)
     }
   }
 

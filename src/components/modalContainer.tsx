@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Footer from './footer'
 
 type Props = {
@@ -26,7 +26,8 @@ const ModalContainer: React.FC<Props> = ({
     startScreenIndex || 0
   )
   const [inputData, setInputData] = useState(data)
-  const close = () => onClose()
+
+  const close = () => onClose({ ...inputData })
 
   const renderScreen = (Screen: any, index: number) => {
     return (
@@ -47,12 +48,20 @@ const ModalContainer: React.FC<Props> = ({
   const isLastScreen = (index: number) => index === screens.length - 1
 
   const next = () => {
-    onNext({ fromIndex: currentScreenIndex, toIndex: currentScreenIndex + 1 })
+    onNext({
+      ...inputData,
+      fromIndex: currentScreenIndex,
+      toIndex: currentScreenIndex + 1
+    })
     setCurrentScreenIndex(currentScreenIndex + 1)
   }
 
   const prev = () => {
-    onPrev({ fromIndex: currentScreenIndex, toIndex: currentScreenIndex - 1 })
+    onPrev({
+      ...inputData,
+      fromIndex: currentScreenIndex,
+      toIndex: currentScreenIndex - 1
+    })
     setCurrentScreenIndex(currentScreenIndex - 1)
   }
 
