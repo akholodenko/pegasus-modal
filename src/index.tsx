@@ -45,6 +45,7 @@ const PegasusModal: React.FC<Props> = ({ config }) => {
       onNext={onNext}
       onPrev={onPrev}
       isOpen={!!configWithDefaults.isOpen}
+      size={configWithDefaults.size}
       footer={configWithDefaults.footer}
       startScreenIndex={configWithDefaults.startScreenIndex}
     />

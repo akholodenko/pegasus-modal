@@ -7,6 +7,7 @@ declare type Props = {
     onPrev: Function;
     isOpen: boolean;
     footer?: string;
+    size?: string;
     startScreenIndex?: number;
 };
 declare const ModalContainer: React.FC<Props>;

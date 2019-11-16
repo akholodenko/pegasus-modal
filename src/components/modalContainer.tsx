@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Footer from './footer'
 
 type Props = {
@@ -9,8 +9,11 @@ type Props = {
   onPrev: Function
   isOpen: boolean
   footer?: string
+  size?: string
   startScreenIndex?: number
 }
+
+const CONTAINER_HALF_SIZE = 'half'
 
 const ModalContainer: React.FC<Props> = ({
   screens,
@@ -20,6 +23,7 @@ const ModalContainer: React.FC<Props> = ({
   onPrev,
   isOpen,
   footer,
+  size,
   startScreenIndex
 }) => {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(
@@ -69,15 +73,19 @@ const ModalContainer: React.FC<Props> = ({
     setInputData(newData)
   }
 
+  const isHalfSize = () => size === CONTAINER_HALF_SIZE
+
   const containerStyle: React.CSSProperties = {
     display: displayStyle(isOpen),
     position: 'fixed',
     top: 0,
     left: 0,
-    width: '100%',
-    height: '100%',
+    width: isHalfSize() ? '50%' : '100%',
+    height: isHalfSize() ? '50%' : '100%',
     backgroundColor: '#fff',
-    paddingTop: '50px'
+    paddingTop: '50px',
+    border: isHalfSize() ? '1px solid #555555' : 'none',
+    transform: isHalfSize() ? 'translate(50%, 15%)' : 'translate(0%, 0%)'
   }
 
   const closeButtonStyle: React.CSSProperties = {

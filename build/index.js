@@ -77,13 +77,11 @@ var Footer = function (_a) {
     return footerByType(type);
 };
 
+var CONTAINER_HALF_SIZE = 'half';
 var ModalContainer = function (_a) {
-    var screens = _a.screens, data = _a.data, onClose = _a.onClose, onNext = _a.onNext, onPrev = _a.onPrev, isOpen = _a.isOpen, footer = _a.footer, startScreenIndex = _a.startScreenIndex;
+    var screens = _a.screens, data = _a.data, onClose = _a.onClose, onNext = _a.onNext, onPrev = _a.onPrev, isOpen = _a.isOpen, footer = _a.footer, size = _a.size, startScreenIndex = _a.startScreenIndex;
     var _b = React.useState(startScreenIndex || 0), currentScreenIndex = _b[0], setCurrentScreenIndex = _b[1];
     var _c = React.useState(data), inputData = _c[0], setInputData = _c[1];
-    React.useEffect(function () {
-        setCurrentScreenIndex(startScreenIndex || 0);
-    }, [startScreenIndex]);
     var close = function () { return onClose(__assign({}, inputData)); };
     var renderScreen = function (Screen, index) {
         return (React__default.createElement(Screen, { data: inputData, isFirstScreen: isFirstScreen(index), isLastScreen: isLastScreen(index), isOpen: isOpen, next: next, prev: prev, updateData: updateData }));
@@ -102,15 +100,18 @@ var ModalContainer = function (_a) {
     var updateData = function (newData) {
         setInputData(newData);
     };
+    var isHalfSize = function () { return size === CONTAINER_HALF_SIZE; };
     var containerStyle = {
         display: displayStyle(isOpen),
         position: 'fixed',
         top: 0,
         left: 0,
-        width: '100%',
-        height: '100%',
+        width: isHalfSize() ? '50%' : '100%',
+        height: isHalfSize() ? '50%' : '100%',
         backgroundColor: '#fff',
-        paddingTop: '50px'
+        paddingTop: '50px',
+        border: isHalfSize() ? '1px solid #555555' : 'none',
+        transform: isHalfSize() ? 'translate(50%, 15%)' : 'translate(0%, 0%)'
     };
     var closeButtonStyle = {
         position: 'absolute',
@@ -155,7 +156,7 @@ var PegasusModal = function (_a) {
             configWithDefaults.onPrev(data);
         }
     };
-    return (React__default.createElement(ModalContainer, { data: configWithDefaults.data, screens: configWithDefaults.screens, onClose: onClose, onNext: onNext, onPrev: onPrev, isOpen: !!configWithDefaults.isOpen, footer: configWithDefaults.footer, startScreenIndex: configWithDefaults.startScreenIndex }));
+    return (React__default.createElement(ModalContainer, { data: configWithDefaults.data, screens: configWithDefaults.screens, onClose: onClose, onNext: onNext, onPrev: onPrev, isOpen: !!configWithDefaults.isOpen, size: configWithDefaults.size, footer: configWithDefaults.footer, startScreenIndex: configWithDefaults.startScreenIndex }));
 };
 
 exports.PegasusModal = PegasusModal;
