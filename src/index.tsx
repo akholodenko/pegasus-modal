@@ -14,7 +14,6 @@ const PegasusModal: React.FC<Props> = ({ config }) => {
     setConfigWithDefaults({ ...configWithDefaults, isOpen: config.isOpen })
 
     if (config.isOpen && configWithDefaults.onOpen) {
-      console.log('configWithDefaults', configWithDefaults.startScreenIndex)
       configWithDefaults.onOpen(configWithDefaults.data)
     }
   }, [config.isOpen])

@@ -1,5 +1,10 @@
 import React, { useState } from 'react'
 import Footer from './footer'
+import {
+  containerStyle,
+  containerSizeStyle,
+  closeButtonStyle
+} from './modalContainer.css'
 
 type Props = {
   screens: any
@@ -47,7 +52,6 @@ const ModalContainer: React.FC<Props> = ({
     )
   }
 
-  const displayStyle = (isOpen?: boolean) => (isOpen ? 'block' : 'none')
   const isFirstScreen = (index: number) => index === 0
   const isLastScreen = (index: number) => index === screens.length - 1
 
@@ -75,30 +79,10 @@ const ModalContainer: React.FC<Props> = ({
 
   const isHalfSize = () => size === CONTAINER_HALF_SIZE
 
-  const containerStyle: React.CSSProperties = {
-    display: displayStyle(isOpen),
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    width: isHalfSize() ? '50%' : '100%',
-    height: isHalfSize() ? '50%' : '100%',
-    backgroundColor: '#fff',
-    paddingTop: '50px',
-    border: isHalfSize() ? '1px solid #555555' : 'none',
-    transform: isHalfSize() ? 'translate(50%, 15%)' : 'translate(0%, 0%)'
-  }
-
-  const closeButtonStyle: React.CSSProperties = {
-    position: 'absolute',
-    right: '15px',
-    top: '10px',
-    fontSize: '30px',
-    fontWeight: 100,
-    cursor: 'pointer'
-  }
+  const currentContainerSizeStyle = containerSizeStyle(isHalfSize())
 
   return (
-    <div style={containerStyle}>
+    <div style={{ ...containerStyle(isOpen), ...currentContainerSizeStyle }}>
       <div
         onClick={() => {
           close()

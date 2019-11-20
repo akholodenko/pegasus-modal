@@ -70,6 +70,34 @@ var Footer = function (_a) {
     return footerByType(type);
 };
 
+var containerStyle = function (isOpen) {
+    return {
+        display: isOpen ? 'block' : 'none',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        backgroundColor: '#fff',
+        paddingTop: '50px',
+        borderRadius: '5px'
+    };
+};
+var containerSizeStyle = function (isHalfSize) {
+    return {
+        width: isHalfSize ? '50%' : '100%',
+        height: isHalfSize ? '50%' : '100%',
+        border: isHalfSize ? '1px solid #ccc' : 'none',
+        transform: isHalfSize ? 'translate(50%, 15%)' : 'translate(0%, 0%)'
+    };
+};
+var closeButtonStyle = {
+    position: 'absolute',
+    right: '15px',
+    top: '10px',
+    fontSize: '30px',
+    fontWeight: 100,
+    cursor: 'pointer'
+};
+
 var CONTAINER_HALF_SIZE = 'half';
 var ModalContainer = function (_a) {
     var screens = _a.screens, data = _a.data, onClose = _a.onClose, onNext = _a.onNext, onPrev = _a.onPrev, isOpen = _a.isOpen, footer = _a.footer, size = _a.size, startScreenIndex = _a.startScreenIndex;
@@ -79,7 +107,6 @@ var ModalContainer = function (_a) {
     var renderScreen = function (Screen, index) {
         return (React.createElement(Screen, { data: inputData, isFirstScreen: isFirstScreen(index), isLastScreen: isLastScreen(index), isOpen: isOpen, next: next, prev: prev, updateData: updateData }));
     };
-    var displayStyle = function (isOpen) { return (isOpen ? 'block' : 'none'); };
     var isFirstScreen = function (index) { return index === 0; };
     var isLastScreen = function (index) { return index === screens.length - 1; };
     var next = function () {
@@ -94,27 +121,8 @@ var ModalContainer = function (_a) {
         setInputData(newData);
     };
     var isHalfSize = function () { return size === CONTAINER_HALF_SIZE; };
-    var containerStyle = {
-        display: displayStyle(isOpen),
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: isHalfSize() ? '50%' : '100%',
-        height: isHalfSize() ? '50%' : '100%',
-        backgroundColor: '#fff',
-        paddingTop: '50px',
-        border: isHalfSize() ? '1px solid #555555' : 'none',
-        transform: isHalfSize() ? 'translate(50%, 15%)' : 'translate(0%, 0%)'
-    };
-    var closeButtonStyle = {
-        position: 'absolute',
-        right: '15px',
-        top: '10px',
-        fontSize: '30px',
-        fontWeight: 100,
-        cursor: 'pointer'
-    };
-    return (React.createElement("div", { style: containerStyle },
+    var currentContainerSizeStyle = containerSizeStyle(isHalfSize());
+    return (React.createElement("div", { style: __assign(__assign({}, containerStyle(isOpen)), currentContainerSizeStyle) },
         React.createElement("div", { onClick: function () {
                 close();
             }, style: closeButtonStyle }, "\u00D7"),
@@ -130,7 +138,6 @@ var PegasusModal = function (_a) {
     useEffect(function () {
         setConfigWithDefaults(__assign(__assign({}, configWithDefaults), { isOpen: config.isOpen }));
         if (config.isOpen && configWithDefaults.onOpen) {
-            console.log('configWithDefaults', configWithDefaults.startScreenIndex);
             configWithDefaults.onOpen(configWithDefaults.data);
         }
     }, [config.isOpen]);
