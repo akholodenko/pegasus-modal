@@ -4,7 +4,7 @@ Versatile modal component.
 
 **Github:** [https://github.com/akholodenko/pegasus-modal](https://github.com/akholodenko/pegasus-modal)
 
-##Usage##
+## Usage
 
 **Install:** `npm i pegasus-modal`
 
@@ -27,7 +27,7 @@ Versatile modal component.
   }
 ```
 
-###Example###
+## Example
 
 **App:** [https://github.com/akholodenko/pegasus-modal-example/blob/master/src/App.tsx](https://github.com/akholodenko/pegasus-modal-example/blob/master/src/App.tsx)
 
