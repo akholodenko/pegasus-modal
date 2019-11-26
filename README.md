@@ -12,8 +12,8 @@ Versatile modal component.
 
 **Configuration**
 
-```
-{
+```javascript
+ const config = {
     isOpen: true, // boolean; control whether the modal is open or closed
 
     screens: [DemoFirstComponent, DemoSecondComponent, DemoThirdComponent], // array; components to be connected into flow via prev/next buttons
@@ -36,13 +36,35 @@ Versatile modal component.
 }
 ```
 
+**Initialization**
+
+`<PegasusModal config={config} />`
+
+**Injected props in screens components**
+
+```javascript
+const {
+  data, // data object passed in config to modal
+
+  isFirstScreen, // boolean indicating if current component is first in screens array
+
+  isLastScreen, // boolean indicating if current component is last in screens array
+
+  next, // method to display next component in screens array
+
+  prev, // method to display previous component in screens array
+
+  updateData // method to update data passed in, globally in modal and in config callbacks
+} = props
+```
+
 ## Example
 
 **App:** [https://github.com/akholodenko/pegasus-modal-example/blob/master/src/App.tsx](https://github.com/akholodenko/pegasus-modal-example/blob/master/src/App.tsx)
 
 **App Code:**
 
-```
+```typescript
 import React, { useState } from 'react'
 import './App.css'
 
