@@ -38,7 +38,9 @@ Versatile modal component.
 
 **Initialization**
 
-`<PegasusModal config={config} />`
+```javascript
+<PegasusModal config={config} />
+```
 
 **Injected props in screens components**
 
