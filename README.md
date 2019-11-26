@@ -2,11 +2,36 @@
 
 Versatile modal component.
 
-Github: [https://github.com/akholodenko/pegasus-modal](https://github.com/akholodenko/pegasus-modal)
+**Github:** [https://github.com/akholodenko/pegasus-modal](https://github.com/akholodenko/pegasus-modal)
 
-Example App: [https://github.com/akholodenko/pegasus-modal-example/blob/master/src/App.tsx](https://github.com/akholodenko/pegasus-modal-example/blob/master/src/App.tsx)
+##Usage##
 
-Example App Code:
+**Install:** `npm i pegasus-modal`
+
+**Import:** `import { PegasusModal } from 'pegasus-modal'`
+
+**Configuration**
+
+```
+{
+    isOpen: true, // boolean; control whether the modal is open or closed
+    screens: [DemoFirstComponent, DemoSecondComponent, DemoThirdComponent], // array; components to be connected into flow via prev/next buttons
+    data: { ... }, // object; injected as prop to all components in screens array
+    onOpen: (data: {}) => {}, // function; callback when modal is opened
+    onClose: (data: {}) => {}, // function; callback when modal is closed
+    onNext: (data: {}) => {}, // function; callback when modal navigates to next component in screen array
+    onPrev: (data: {}) => {}, // function; callback when modal navigates to previous component in screen array
+    size: 'half', // string; 'half' or 'full' supported for modal size
+    footer: 'sticky', // string; 'sticky', 'none', 'inline' (default) for modal footer display (with prev/next buttons)
+    startScreenIndex: 1 // integer; index of initially loaded component from screen array
+  }
+```
+
+###Example###
+
+**App:** [https://github.com/akholodenko/pegasus-modal-example/blob/master/src/App.tsx](https://github.com/akholodenko/pegasus-modal-example/blob/master/src/App.tsx)
+
+**App Code:**
 
 ```
 import React, { useState } from 'react'
