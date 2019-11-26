@@ -32,7 +32,7 @@ Versatile modal component.
 
     footer: 'sticky', // string; 'sticky', 'none', 'inline' (default) for modal footer display (with prev/next buttons)
 
-    startScreenIndex: 1 // integer; index of initially loaded component from screen array
+    startScreenIndex: 1 // integer; index of initially loaded component from screen array; default: 0
 }
 ```
 
@@ -74,20 +74,12 @@ import { PegasusModal, ModalConfigInterface } from 'pegasus-modal'
 import DemoFirstComponent from './components/demoFirstComponent'
 import DemoSecondComponent from './components/demoSecondComponent'
 import DemoThirdComponent from './components/demoThirdComponent'
-import { UserCardProps } from './interfaces/userCard'
 
 function App() {
-  const inputs: UserCardProps = {
-    name: 'Artem K.',
-    email: 'something@gmail.com',
-    location: 'San Francisco, CA'
-  }
-
   const [config, setConfig] = useState<ModalConfigInterface>({
     isOpen: true,
     screens: [DemoFirstComponent, DemoSecondComponent, DemoThirdComponent],
     data: {
-      userInfo: inputs,
       currentDate: new Date().toDateString()
     },
     onOpen: (data: {}) => {
