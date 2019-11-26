@@ -6,9 +6,17 @@ Versatile modal component.
 
 ## Usage
 
-**Install:** `npm i pegasus-modal`
+**Install:**
 
-**Import:** `import { PegasusModal } from 'pegasus-modal'`
+```
+npm i pegasus-modal
+```
+
+**Import:**
+
+```javascript
+import { PegasusModal } from 'pegasus-modal'
+```
 
 **Configuration**
 
