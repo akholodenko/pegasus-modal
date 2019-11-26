@@ -3,6 +3,7 @@ declare type Props = {
     type: string;
     isFirstScreen: boolean;
     isLastScreen: boolean;
+    isHalfSize: boolean;
     next: Function;
     prev: Function;
 };

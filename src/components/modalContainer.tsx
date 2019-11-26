@@ -99,6 +99,7 @@ const ModalContainer: React.FC<Props> = ({
           type={footer || 'inline'}
           isFirstScreen={isFirstScreen(currentScreenIndex)}
           isLastScreen={isLastScreen(currentScreenIndex)}
+          isHalfSize={isHalfSize()}
           next={next}
           prev={prev}
         />

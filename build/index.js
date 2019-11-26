@@ -48,20 +48,34 @@ var initConfigDefaults = function (config) {
 };
 
 var Footer = function (_a) {
-    var type = _a.type, isFirstScreen = _a.isFirstScreen, isLastScreen = _a.isLastScreen, next = _a.next, prev = _a.prev;
+    var type = _a.type, isFirstScreen = _a.isFirstScreen, isLastScreen = _a.isLastScreen, isHalfSize = _a.isHalfSize, next = _a.next, prev = _a.prev;
     var stickyFooterStyle = {
         position: 'absolute',
-        bottom: '50px',
+        bottom: isHalfSize ? '0px' : '50px',
         left: '0',
         width: '100%',
-        height: '50px',
+        height: '80px',
         borderTop: '1px solid #ccc',
         textAlign: 'center'
     };
+    var buttonContainerStyle = {
+        display: 'inline-block',
+        minWidth: '220px',
+        marginTop: '20px'
+    };
+    var buttonStyle = {
+        width: '100px',
+        padding: '10px 20px',
+        fontSize: '14px',
+        textTransform: 'uppercase',
+        borderRadius: '3px',
+        fontWeight: 600,
+        outline: 'none'
+    };
     var footerContent = function () {
-        return (React__default.createElement("div", null,
-            !isFirstScreen && React__default.createElement("button", { onClick: function () { return prev(); } }, "prev"),
-            !isLastScreen && React__default.createElement("button", { onClick: function () { return next(); } }, "next")));
+        return (React__default.createElement("div", { style: buttonContainerStyle },
+            !isFirstScreen && (React__default.createElement("button", { style: __assign(__assign({}, buttonStyle), { marginRight: '10px', float: 'left' }), onClick: function () { return prev(); } }, "prev")),
+            !isLastScreen && (React__default.createElement("button", { style: __assign(__assign({}, buttonStyle), { float: 'right' }), onClick: function () { return next(); } }, "next"))));
     };
     var footerByType = function (type) {
         switch (type) {
@@ -136,7 +150,7 @@ var ModalContainer = function (_a) {
         screens &&
             screens.length &&
             renderScreen(screens[currentScreenIndex], currentScreenIndex),
-        React__default.createElement(Footer, { type: footer || 'inline', isFirstScreen: isFirstScreen(currentScreenIndex), isLastScreen: isLastScreen(currentScreenIndex), next: next, prev: prev })));
+        React__default.createElement(Footer, { type: footer || 'inline', isFirstScreen: isFirstScreen(currentScreenIndex), isLastScreen: isLastScreen(currentScreenIndex), isHalfSize: isHalfSize(), next: next, prev: prev })));
 };
 
 var PegasusModal = function (_a) {
