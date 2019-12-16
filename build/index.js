@@ -70,7 +70,8 @@ var Footer = function (_a) {
         textTransform: 'uppercase',
         borderRadius: '3px',
         fontWeight: 600,
-        outline: 'none'
+        outline: 'none',
+        cursor: 'pointer'
     };
     var footerContent = function () {
         return (React__default.createElement("div", { style: buttonContainerStyle },
@@ -93,13 +94,15 @@ var Footer = function (_a) {
 
 var containerStyle = function (isOpen) {
     return {
-        display: isOpen ? 'block' : 'none',
+        // display: isOpen ? 'block' : 'none',
+        display: 'block',
+        opacity: isOpen ? 1 : 0,
         position: 'fixed',
-        top: 0,
+        top: isOpen ? 0 : '-150%',
         left: 0,
-        backgroundColor: '#fff',
+        backgroundColor: '#eee',
         paddingTop: '50px',
-        borderRadius: '5px'
+        transition: 'all 0.3s ease'
     };
 };
 var containerSizeStyle = function (isHalfSize) {
@@ -107,7 +110,8 @@ var containerSizeStyle = function (isHalfSize) {
         width: isHalfSize ? '50%' : '100%',
         height: isHalfSize ? '50%' : '100%',
         border: isHalfSize ? '1px solid #ccc' : 'none',
-        transform: isHalfSize ? 'translate(50%, 15%)' : 'translate(0%, 0%)'
+        transform: isHalfSize ? 'translate(50%, 15%)' : 'translate(0%, 0%)',
+        borderRadius: isHalfSize ? '5px' : '0px'
     };
 };
 var closeButtonStyle = {

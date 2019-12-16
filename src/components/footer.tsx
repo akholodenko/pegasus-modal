@@ -40,7 +40,8 @@ const Footer: React.FC<Props> = ({
     textTransform: 'uppercase',
     borderRadius: '3px',
     fontWeight: 600,
-    outline: 'none'
+    outline: 'none',
+    cursor: 'pointer'
   }
 
   const footerContent = () => {
