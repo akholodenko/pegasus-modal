@@ -121,6 +121,15 @@ var ModalContainer = function (_a) {
     var screens = _a.screens, data = _a.data, onClose = _a.onClose, onNext = _a.onNext, onPrev = _a.onPrev, isOpen = _a.isOpen, footer = _a.footer, size = _a.size, startScreenIndex = _a.startScreenIndex;
     var _b = useState(startScreenIndex || 0), currentScreenIndex = _b[0], setCurrentScreenIndex = _b[1];
     var _c = useState(data), inputData = _c[0], setInputData = _c[1];
+    useEffect(function () {
+        if (isOpen &&
+            startScreenIndex !== null &&
+            startScreenIndex !== undefined &&
+            startScreenIndex >= 0 &&
+            startScreenIndex !== currentScreenIndex) {
+            setCurrentScreenIndex(startScreenIndex);
+        }
+    }, [isOpen, startScreenIndex]);
     var close = function () { return onClose(__assign({}, inputData)); };
     var renderScreen = function (Screen, index) {
         return (React.createElement(Screen, { data: inputData, isFirstScreen: isFirstScreen(index), isLastScreen: isLastScreen(index), isOpen: isOpen, next: next, prev: prev, updateData: updateData }));
@@ -154,11 +163,11 @@ var PegasusModal = function (_a) {
     var config = _a.config;
     var _b = useState(initConfigDefaults(config)), configWithDefaults = _b[0], setConfigWithDefaults = _b[1];
     useEffect(function () {
-        setConfigWithDefaults(__assign(__assign({}, configWithDefaults), { isOpen: config.isOpen }));
+        setConfigWithDefaults(__assign(__assign({}, configWithDefaults), { isOpen: config.isOpen, startScreenIndex: config.startScreenIndex }));
         if (config.isOpen && configWithDefaults.onOpen) {
             configWithDefaults.onOpen(configWithDefaults.data);
         }
-    }, [config.isOpen]);
+    }, [config.isOpen, config.startScreenIndex]);
     var onClose = function (data) {
         if (typeof configWithDefaults.onClose === 'function') {
             configWithDefaults.onClose(data);

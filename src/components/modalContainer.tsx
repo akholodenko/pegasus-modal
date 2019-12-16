@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Footer from './footer'
 import {
   containerStyle,
@@ -35,6 +35,18 @@ const ModalContainer: React.FC<Props> = ({
     startScreenIndex || 0
   )
   const [inputData, setInputData] = useState(data)
+
+  useEffect(() => {
+    if (
+      isOpen &&
+      startScreenIndex !== null &&
+      startScreenIndex !== undefined &&
+      startScreenIndex >= 0 &&
+      startScreenIndex !== currentScreenIndex
+    ) {
+      setCurrentScreenIndex(startScreenIndex)
+    }
+  }, [isOpen, startScreenIndex])
 
   const close = () => onClose({ ...inputData })
 
