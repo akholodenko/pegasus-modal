@@ -40,7 +40,9 @@ import { PegasusModal } from 'pegasus-modal'
 
     footer: 'sticky', // string; 'sticky', 'none', 'inline' (default) for modal footer display (with prev/next buttons)
 
-    startScreenIndex: 1 // integer; index of initially loaded component from screen array; default: 0; set to -1 when updating during toggling to keep at current screen when toggling.
+    startScreenIndex: 1, // integer; index of initially loaded component from screen array; default: 0; set to -1 when updating during toggling to keep at current screen when toggling.
+
+    confirmClose: true, // booloean; display a confirmation overlay to close modal which clicking X; default: false
 }
 ```
 
@@ -105,7 +107,8 @@ function App() {
     },
     size: 'half',
     footer: 'sticky',
-    startScreenIndex: 1
+    startScreenIndex: 1,
+    confirmClose: true
   })
 
   const toggleModal = () => {

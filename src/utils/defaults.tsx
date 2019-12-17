@@ -12,6 +12,7 @@ export const initConfigDefaults = (config: ModalConfigInterface) => {
   result.footer = result.footer === undefined ? 'inline' : result.footer
   result.startScreenIndex =
     result.startScreenIndex === undefined ? 0 : result.startScreenIndex
+  result.confirmClose === undefined ? false : result.confirmClose
 
   return result
 }

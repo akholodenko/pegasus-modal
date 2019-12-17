@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Footer from './footer'
+import ConfirmClose from './confirmClose'
 import {
   containerStyle,
   containerSizeStyle,
@@ -16,6 +17,7 @@ type Props = {
   footer?: string
   size?: string
   startScreenIndex?: number
+  confirmClose?: boolean
 }
 
 const CONTAINER_HALF_SIZE = 'half'
@@ -29,12 +31,14 @@ const ModalContainer: React.FC<Props> = ({
   isOpen,
   footer,
   size,
-  startScreenIndex
+  startScreenIndex,
+  confirmClose
 }) => {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(
     startScreenIndex || 0
   )
   const [inputData, setInputData] = useState(data)
+  const [showConfirmClose, setShowConfirmClose] = useState(false)
 
   useEffect(() => {
     if (
@@ -48,7 +52,19 @@ const ModalContainer: React.FC<Props> = ({
     }
   }, [isOpen, startScreenIndex])
 
-  const close = () => onClose({ ...inputData })
+  const close = () => {
+    if (confirmClose) {
+      setShowConfirmClose(true)
+    } else {
+      onClose({ ...inputData })
+    }
+  }
+
+  const onConfirmClose = () => {
+    setShowConfirmClose(false)
+    onClose({ ...inputData })
+  }
+  const onCancelClose = () => setShowConfirmClose(false)
 
   const renderScreen = (Screen: any, index: number) => {
     return (
@@ -95,6 +111,12 @@ const ModalContainer: React.FC<Props> = ({
 
   return (
     <div style={{ ...containerStyle(isOpen), ...currentContainerSizeStyle }}>
+      {showConfirmClose && (
+        <ConfirmClose
+          onConfirmClose={onConfirmClose}
+          onCancelClose={onCancelClose}
+        />
+      )}
       <div
         onClick={() => {
           close()

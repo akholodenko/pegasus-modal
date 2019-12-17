@@ -37,6 +37,7 @@ var initConfigDefaults = function (config) {
     result.footer = result.footer === undefined ? 'inline' : result.footer;
     result.startScreenIndex =
         result.startScreenIndex === undefined ? 0 : result.startScreenIndex;
+    result.confirmClose === undefined ? false : result.confirmClose;
     return result;
 };
 
@@ -85,6 +86,17 @@ var Footer = function (_a) {
     return footerByType(type);
 };
 
+var ConfirmClose = function (_a) {
+    var onConfirmClose = _a.onConfirmClose, onCancelClose = _a.onCancelClose;
+    return (React.createElement("div", null,
+        React.createElement("div", { onClick: function () {
+                onConfirmClose();
+            } }, "CLOSE!"),
+        React.createElement("div", { onClick: function () {
+                onCancelClose();
+            } }, "CANCEL!")));
+};
+
 var containerStyle = function (isOpen) {
     return {
         // display: isOpen ? 'block' : 'none',
@@ -118,9 +130,10 @@ var closeButtonStyle = {
 
 var CONTAINER_HALF_SIZE = 'half';
 var ModalContainer = function (_a) {
-    var screens = _a.screens, data = _a.data, onClose = _a.onClose, onNext = _a.onNext, onPrev = _a.onPrev, isOpen = _a.isOpen, footer = _a.footer, size = _a.size, startScreenIndex = _a.startScreenIndex;
+    var screens = _a.screens, data = _a.data, onClose = _a.onClose, onNext = _a.onNext, onPrev = _a.onPrev, isOpen = _a.isOpen, footer = _a.footer, size = _a.size, startScreenIndex = _a.startScreenIndex, confirmClose = _a.confirmClose;
     var _b = useState(startScreenIndex || 0), currentScreenIndex = _b[0], setCurrentScreenIndex = _b[1];
     var _c = useState(data), inputData = _c[0], setInputData = _c[1];
+    var _d = useState(false), showConfirmClose = _d[0], setShowConfirmClose = _d[1];
     useEffect(function () {
         if (isOpen &&
             startScreenIndex !== null &&
@@ -130,7 +143,19 @@ var ModalContainer = function (_a) {
             setCurrentScreenIndex(startScreenIndex);
         }
     }, [isOpen, startScreenIndex]);
-    var close = function () { return onClose(__assign({}, inputData)); };
+    var close = function () {
+        if (confirmClose) {
+            setShowConfirmClose(true);
+        }
+        else {
+            onClose(__assign({}, inputData));
+        }
+    };
+    var onConfirmClose = function () {
+        setShowConfirmClose(false);
+        onClose(__assign({}, inputData));
+    };
+    var onCancelClose = function () { return setShowConfirmClose(false); };
     var renderScreen = function (Screen, index) {
         return (React.createElement(Screen, { data: inputData, isFirstScreen: isFirstScreen(index), isLastScreen: isLastScreen(index), isOpen: isOpen, next: next, prev: prev, updateData: updateData }));
     };
@@ -150,6 +175,7 @@ var ModalContainer = function (_a) {
     var isHalfSize = function () { return size === CONTAINER_HALF_SIZE; };
     var currentContainerSizeStyle = containerSizeStyle(isHalfSize());
     return (React.createElement("div", { style: __assign(__assign({}, containerStyle(isOpen)), currentContainerSizeStyle) },
+        showConfirmClose && (React.createElement(ConfirmClose, { onConfirmClose: onConfirmClose, onCancelClose: onCancelClose })),
         React.createElement("div", { onClick: function () {
                 close();
             }, style: closeButtonStyle }, "\u00D7"),
@@ -183,7 +209,7 @@ var PegasusModal = function (_a) {
             configWithDefaults.onPrev(data);
         }
     };
-    return (React.createElement(ModalContainer, { data: configWithDefaults.data, screens: configWithDefaults.screens, onClose: onClose, onNext: onNext, onPrev: onPrev, isOpen: !!configWithDefaults.isOpen, size: configWithDefaults.size, footer: configWithDefaults.footer, startScreenIndex: configWithDefaults.startScreenIndex }));
+    return (React.createElement(ModalContainer, { data: configWithDefaults.data, screens: configWithDefaults.screens, onClose: onClose, onNext: onNext, onPrev: onPrev, isOpen: !!configWithDefaults.isOpen, size: configWithDefaults.size, footer: configWithDefaults.footer, startScreenIndex: configWithDefaults.startScreenIndex, confirmClose: configWithDefaults.confirmClose }));
 };
 
 export { PegasusModal };

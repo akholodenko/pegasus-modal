@@ -9,4 +9,5 @@ export interface ModalConfigInterface {
   onPrev?: Function
   footer?: string // inline | sticky | none
   startScreenIndex?: number
+  confirmClose?: boolean
 }

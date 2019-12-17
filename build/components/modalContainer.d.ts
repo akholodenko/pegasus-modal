@@ -9,6 +9,7 @@ declare type Props = {
     footer?: string;
     size?: string;
     startScreenIndex?: number;
+    confirmClose?: boolean;
 };
 declare const ModalContainer: React.FC<Props>;
 export default ModalContainer;

@@ -9,4 +9,5 @@ export interface ModalConfigInterface {
     onPrev?: Function;
     footer?: string;
     startScreenIndex?: number;
+    confirmClose?: boolean;
 }
