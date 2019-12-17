@@ -10,7 +10,8 @@ export const containerStyle = (isOpen: boolean): React.CSSProperties => {
     left: 0,
     backgroundColor: '#eee',
     paddingTop: '50px',
-    transition: 'all 0.3s ease'
+    transition: 'all 0.3s ease',
+    overflow: 'hidden'
   }
 }
 

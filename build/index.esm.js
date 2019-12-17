@@ -41,6 +41,17 @@ var initConfigDefaults = function (config) {
     return result;
 };
 
+var buttonStyle = {
+    width: '100px',
+    padding: '10px 20px',
+    fontSize: '14px',
+    textTransform: 'uppercase',
+    borderRadius: '3px',
+    fontWeight: 600,
+    outline: 'none',
+    cursor: 'pointer'
+};
+
 var Footer = function (_a) {
     var type = _a.type, isFirstScreen = _a.isFirstScreen, isLastScreen = _a.isLastScreen, isHalfSize = _a.isHalfSize, next = _a.next, prev = _a.prev;
     var stickyFooterStyle = {
@@ -56,16 +67,6 @@ var Footer = function (_a) {
         display: 'inline-block',
         minWidth: '220px',
         marginTop: '20px'
-    };
-    var buttonStyle = {
-        width: '100px',
-        padding: '10px 20px',
-        fontSize: '14px',
-        textTransform: 'uppercase',
-        borderRadius: '3px',
-        fontWeight: 600,
-        outline: 'none',
-        cursor: 'pointer'
     };
     var footerContent = function () {
         return (React.createElement("div", { style: buttonContainerStyle },
@@ -86,15 +87,35 @@ var Footer = function (_a) {
     return footerByType(type);
 };
 
+var confirmCloseContainerStyle = {
+    position: 'absolute',
+    top: '0px',
+    left: '0px',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    zIndex: 10001
+};
+var buttonContainerStyle = {
+    transform: 'translate(-50%,-50%)',
+    position: 'absolute',
+    top: '50%',
+    left: '50%'
+};
+var textLabelStyle = {
+    marginBottom: '20px'
+};
 var ConfirmClose = function (_a) {
     var onConfirmClose = _a.onConfirmClose, onCancelClose = _a.onCancelClose;
-    return (React.createElement("div", null,
-        React.createElement("div", { onClick: function () {
-                onConfirmClose();
-            } }, "CLOSE!"),
-        React.createElement("div", { onClick: function () {
-                onCancelClose();
-            } }, "CANCEL!")));
+    return (React.createElement("div", { style: confirmCloseContainerStyle },
+        React.createElement("div", { style: buttonContainerStyle },
+            React.createElement("div", { style: textLabelStyle }, "Close modal?"),
+            React.createElement("button", { style: __assign(__assign({}, buttonStyle), { marginRight: '10px' }), onClick: function () {
+                    onConfirmClose();
+                } }, "yes"),
+            React.createElement("button", { style: buttonStyle, onClick: function () {
+                    onCancelClose();
+                } }, "no"))));
 };
 
 var containerStyle = function (isOpen) {
@@ -107,7 +128,8 @@ var containerStyle = function (isOpen) {
         left: 0,
         backgroundColor: '#eee',
         paddingTop: '50px',
-        transition: 'all 0.3s ease'
+        transition: 'all 0.3s ease',
+        overflow: 'hidden'
     };
 };
 var containerSizeStyle = function (isHalfSize) {

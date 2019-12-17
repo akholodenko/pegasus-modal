@@ -1,4 +1,5 @@
 import React from 'react'
+import { buttonStyle } from './button.css'
 
 type Props = {
   type: string
@@ -31,17 +32,6 @@ const Footer: React.FC<Props> = ({
     display: 'inline-block',
     minWidth: '220px',
     marginTop: '20px'
-  }
-
-  const buttonStyle: React.CSSProperties = {
-    width: '100px',
-    padding: '10px 20px',
-    fontSize: '14px',
-    textTransform: 'uppercase',
-    borderRadius: '3px',
-    fontWeight: 600,
-    outline: 'none',
-    cursor: 'pointer'
   }
 
   const footerContent = () => {
