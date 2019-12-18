@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Footer from './footer'
+import ConfirmClose from './confirmClose'
+import { CssClassesInterface } from '../interfaces/cssClasses'
 import {
   containerStyle,
   containerSizeStyle,
@@ -16,6 +18,8 @@ type Props = {
   footer?: string
   size?: string
   startScreenIndex?: number
+  confirmClose?: boolean
+  cssClasses: CssClassesInterface
 }
 
 const CONTAINER_HALF_SIZE = 'half'
@@ -29,14 +33,41 @@ const ModalContainer: React.FC<Props> = ({
   isOpen,
   footer,
   size,
-  startScreenIndex
+  startScreenIndex,
+  confirmClose,
+  cssClasses
 }) => {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(
     startScreenIndex || 0
   )
   const [inputData, setInputData] = useState(data)
+  const [showConfirmClose, setShowConfirmClose] = useState(false)
 
-  const close = () => onClose({ ...inputData })
+  useEffect(() => {
+    if (
+      isOpen &&
+      startScreenIndex !== null &&
+      startScreenIndex !== undefined &&
+      startScreenIndex >= 0 &&
+      startScreenIndex !== currentScreenIndex
+    ) {
+      setCurrentScreenIndex(startScreenIndex)
+    }
+  }, [isOpen, startScreenIndex])
+
+  const close = () => {
+    if (confirmClose) {
+      setShowConfirmClose(true)
+    } else {
+      onClose({ ...inputData })
+    }
+  }
+
+  const onConfirmClose = () => {
+    setShowConfirmClose(false)
+    onClose({ ...inputData })
+  }
+  const onCancelClose = () => setShowConfirmClose(false)
 
   const renderScreen = (Screen: any, index: number) => {
     return (
@@ -82,12 +113,24 @@ const ModalContainer: React.FC<Props> = ({
   const currentContainerSizeStyle = containerSizeStyle(isHalfSize())
 
   return (
-    <div style={{ ...containerStyle(isOpen), ...currentContainerSizeStyle }}>
+    <div
+      style={{
+        ...containerStyle(isOpen),
+        ...currentContainerSizeStyle,
+        ...cssClasses.containerStyle
+      }}
+    >
+      {showConfirmClose && (
+        <ConfirmClose
+          onConfirmClose={onConfirmClose}
+          onCancelClose={onCancelClose}
+        />
+      )}
       <div
         onClick={() => {
           close()
         }}
-        style={closeButtonStyle}
+        style={{ ...closeButtonStyle, ...cssClasses.closeButtonStyle }}
       >
         &times;
       </div>
@@ -102,6 +145,7 @@ const ModalContainer: React.FC<Props> = ({
           isHalfSize={isHalfSize()}
           next={next}
           prev={prev}
+          footerStyle={cssClasses.footerStyle}
         />
       }
     </div>

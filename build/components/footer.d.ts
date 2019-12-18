@@ -6,6 +6,7 @@ declare type Props = {
     isHalfSize: boolean;
     next: Function;
     prev: Function;
+    footerStyle?: React.CSSProperties;
 };
 declare const Footer: React.FC<Props>;
 export default Footer;

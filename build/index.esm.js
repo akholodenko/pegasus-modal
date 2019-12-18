@@ -37,11 +37,24 @@ var initConfigDefaults = function (config) {
     result.footer = result.footer === undefined ? 'inline' : result.footer;
     result.startScreenIndex =
         result.startScreenIndex === undefined ? 0 : result.startScreenIndex;
+    result.confirmClose === undefined ? false : result.confirmClose;
+    result.cssClasses === undefined ? {} : result.cssClasses;
     return result;
 };
 
+var buttonStyle = {
+    width: '100px',
+    padding: '10px 20px',
+    fontSize: '14px',
+    textTransform: 'uppercase',
+    borderRadius: '3px',
+    fontWeight: 600,
+    outline: 'none',
+    cursor: 'pointer'
+};
+
 var Footer = function (_a) {
-    var type = _a.type, isFirstScreen = _a.isFirstScreen, isLastScreen = _a.isLastScreen, isHalfSize = _a.isHalfSize, next = _a.next, prev = _a.prev;
+    var type = _a.type, isFirstScreen = _a.isFirstScreen, isLastScreen = _a.isLastScreen, isHalfSize = _a.isHalfSize, next = _a.next, prev = _a.prev, footerStyle = _a.footerStyle;
     var stickyFooterStyle = {
         position: 'absolute',
         bottom: isHalfSize ? '0px' : '50px',
@@ -56,15 +69,6 @@ var Footer = function (_a) {
         minWidth: '220px',
         marginTop: '20px'
     };
-    var buttonStyle = {
-        width: '100px',
-        padding: '10px 20px',
-        fontSize: '14px',
-        textTransform: 'uppercase',
-        borderRadius: '3px',
-        fontWeight: 600,
-        outline: 'none'
-    };
     var footerContent = function () {
         return (React.createElement("div", { style: buttonContainerStyle },
             !isFirstScreen && (React.createElement("button", { style: __assign(__assign({}, buttonStyle), { marginRight: '10px', float: 'left' }), onClick: function () { return prev(); } }, "prev")),
@@ -73,26 +77,59 @@ var Footer = function (_a) {
     var footerByType = function (type) {
         switch (type) {
             case 'sticky':
-                return React.createElement("div", { style: stickyFooterStyle }, footerContent());
+                return (React.createElement("div", { style: __assign(__assign({}, stickyFooterStyle), footerStyle) }, footerContent()));
             case 'none':
                 return React.createElement("div", null);
             case 'inline':
             default:
-                return React.createElement("div", null, "inline footer");
+                return React.createElement("div", { style: footerStyle }, footerContent());
         }
     };
     return footerByType(type);
 };
 
+var confirmCloseContainerStyle = {
+    position: 'absolute',
+    top: '0px',
+    left: '0px',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    zIndex: 10001
+};
+var buttonContainerStyle = {
+    transform: 'translate(-50%,-50%)',
+    position: 'absolute',
+    top: '50%',
+    left: '50%'
+};
+var textLabelStyle = {
+    marginBottom: '20px'
+};
+var ConfirmClose = function (_a) {
+    var onConfirmClose = _a.onConfirmClose, onCancelClose = _a.onCancelClose;
+    return (React.createElement("div", { style: confirmCloseContainerStyle },
+        React.createElement("div", { style: buttonContainerStyle },
+            React.createElement("div", { style: textLabelStyle }, "Close modal?"),
+            React.createElement("button", { style: __assign(__assign({}, buttonStyle), { marginRight: '10px' }), onClick: function () {
+                    onConfirmClose();
+                } }, "yes"),
+            React.createElement("button", { style: buttonStyle, onClick: function () {
+                    onCancelClose();
+                } }, "no"))));
+};
+
 var containerStyle = function (isOpen) {
     return {
-        display: isOpen ? 'block' : 'none',
+        // display: isOpen ? 'block' : 'none',
+        display: 'block',
+        opacity: isOpen ? 1 : 0,
         position: 'fixed',
-        top: 0,
-        left: 0,
-        backgroundColor: '#fff',
+        top: isOpen ? 0 : '-150%',
+        backgroundColor: '#eee',
         paddingTop: '50px',
-        borderRadius: '5px'
+        transition: 'all 0.3s ease',
+        overflow: 'hidden'
     };
 };
 var containerSizeStyle = function (isHalfSize) {
@@ -100,7 +137,9 @@ var containerSizeStyle = function (isHalfSize) {
         width: isHalfSize ? '50%' : '100%',
         height: isHalfSize ? '50%' : '100%',
         border: isHalfSize ? '1px solid #ccc' : 'none',
-        transform: isHalfSize ? 'translate(50%, 15%)' : 'translate(0%, 0%)'
+        left: isHalfSize ? '50%' : 0,
+        transform: isHalfSize ? 'translate(-50%, 15%)' : 'translate(0%, 0%)',
+        borderRadius: isHalfSize ? '5px' : '0px'
     };
 };
 var closeButtonStyle = {
@@ -114,10 +153,32 @@ var closeButtonStyle = {
 
 var CONTAINER_HALF_SIZE = 'half';
 var ModalContainer = function (_a) {
-    var screens = _a.screens, data = _a.data, onClose = _a.onClose, onNext = _a.onNext, onPrev = _a.onPrev, isOpen = _a.isOpen, footer = _a.footer, size = _a.size, startScreenIndex = _a.startScreenIndex;
+    var screens = _a.screens, data = _a.data, onClose = _a.onClose, onNext = _a.onNext, onPrev = _a.onPrev, isOpen = _a.isOpen, footer = _a.footer, size = _a.size, startScreenIndex = _a.startScreenIndex, confirmClose = _a.confirmClose, cssClasses = _a.cssClasses;
     var _b = useState(startScreenIndex || 0), currentScreenIndex = _b[0], setCurrentScreenIndex = _b[1];
     var _c = useState(data), inputData = _c[0], setInputData = _c[1];
-    var close = function () { return onClose(__assign({}, inputData)); };
+    var _d = useState(false), showConfirmClose = _d[0], setShowConfirmClose = _d[1];
+    useEffect(function () {
+        if (isOpen &&
+            startScreenIndex !== null &&
+            startScreenIndex !== undefined &&
+            startScreenIndex >= 0 &&
+            startScreenIndex !== currentScreenIndex) {
+            setCurrentScreenIndex(startScreenIndex);
+        }
+    }, [isOpen, startScreenIndex]);
+    var close = function () {
+        if (confirmClose) {
+            setShowConfirmClose(true);
+        }
+        else {
+            onClose(__assign({}, inputData));
+        }
+    };
+    var onConfirmClose = function () {
+        setShowConfirmClose(false);
+        onClose(__assign({}, inputData));
+    };
+    var onCancelClose = function () { return setShowConfirmClose(false); };
     var renderScreen = function (Screen, index) {
         return (React.createElement(Screen, { data: inputData, isFirstScreen: isFirstScreen(index), isLastScreen: isLastScreen(index), isOpen: isOpen, next: next, prev: prev, updateData: updateData }));
     };
@@ -136,25 +197,26 @@ var ModalContainer = function (_a) {
     };
     var isHalfSize = function () { return size === CONTAINER_HALF_SIZE; };
     var currentContainerSizeStyle = containerSizeStyle(isHalfSize());
-    return (React.createElement("div", { style: __assign(__assign({}, containerStyle(isOpen)), currentContainerSizeStyle) },
+    return (React.createElement("div", { style: __assign(__assign(__assign({}, containerStyle(isOpen)), currentContainerSizeStyle), cssClasses.containerStyle) },
+        showConfirmClose && (React.createElement(ConfirmClose, { onConfirmClose: onConfirmClose, onCancelClose: onCancelClose })),
         React.createElement("div", { onClick: function () {
                 close();
-            }, style: closeButtonStyle }, "\u00D7"),
+            }, style: __assign(__assign({}, closeButtonStyle), cssClasses.closeButtonStyle) }, "\u00D7"),
         screens &&
             screens.length &&
             renderScreen(screens[currentScreenIndex], currentScreenIndex),
-        React.createElement(Footer, { type: footer || 'inline', isFirstScreen: isFirstScreen(currentScreenIndex), isLastScreen: isLastScreen(currentScreenIndex), isHalfSize: isHalfSize(), next: next, prev: prev })));
+        React.createElement(Footer, { type: footer || 'inline', isFirstScreen: isFirstScreen(currentScreenIndex), isLastScreen: isLastScreen(currentScreenIndex), isHalfSize: isHalfSize(), next: next, prev: prev, footerStyle: cssClasses.footerStyle })));
 };
 
 var PegasusModal = function (_a) {
     var config = _a.config;
     var _b = useState(initConfigDefaults(config)), configWithDefaults = _b[0], setConfigWithDefaults = _b[1];
     useEffect(function () {
-        setConfigWithDefaults(__assign(__assign({}, configWithDefaults), { isOpen: config.isOpen }));
+        setConfigWithDefaults(__assign(__assign({}, configWithDefaults), { isOpen: config.isOpen, startScreenIndex: config.startScreenIndex }));
         if (config.isOpen && configWithDefaults.onOpen) {
             configWithDefaults.onOpen(configWithDefaults.data);
         }
-    }, [config.isOpen]);
+    }, [config.isOpen, config.startScreenIndex]);
     var onClose = function (data) {
         if (typeof configWithDefaults.onClose === 'function') {
             configWithDefaults.onClose(data);
@@ -170,7 +232,7 @@ var PegasusModal = function (_a) {
             configWithDefaults.onPrev(data);
         }
     };
-    return (React.createElement(ModalContainer, { data: configWithDefaults.data, screens: configWithDefaults.screens, onClose: onClose, onNext: onNext, onPrev: onPrev, isOpen: !!configWithDefaults.isOpen, size: configWithDefaults.size, footer: configWithDefaults.footer, startScreenIndex: configWithDefaults.startScreenIndex }));
+    return (React.createElement(ModalContainer, { data: configWithDefaults.data, screens: configWithDefaults.screens, onClose: onClose, onNext: onNext, onPrev: onPrev, isOpen: !!configWithDefaults.isOpen, size: configWithDefaults.size, footer: configWithDefaults.footer, startScreenIndex: configWithDefaults.startScreenIndex, confirmClose: configWithDefaults.confirmClose, cssClasses: configWithDefaults.cssClasses }));
 };
 
 export { PegasusModal };

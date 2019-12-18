@@ -1,4 +1,5 @@
 import React from 'react'
+import { buttonStyle } from './button.css'
 
 type Props = {
   type: string
@@ -7,6 +8,7 @@ type Props = {
   isHalfSize: boolean
   next: Function
   prev: Function
+  footerStyle?: React.CSSProperties
 }
 
 const Footer: React.FC<Props> = ({
@@ -15,7 +17,8 @@ const Footer: React.FC<Props> = ({
   isLastScreen,
   isHalfSize,
   next,
-  prev
+  prev,
+  footerStyle
 }) => {
   const stickyFooterStyle: React.CSSProperties = {
     position: 'absolute',
@@ -31,16 +34,6 @@ const Footer: React.FC<Props> = ({
     display: 'inline-block',
     minWidth: '220px',
     marginTop: '20px'
-  }
-
-  const buttonStyle: React.CSSProperties = {
-    width: '100px',
-    padding: '10px 20px',
-    fontSize: '14px',
-    textTransform: 'uppercase',
-    borderRadius: '3px',
-    fontWeight: 600,
-    outline: 'none'
   }
 
   const footerContent = () => {
@@ -69,12 +62,16 @@ const Footer: React.FC<Props> = ({
   const footerByType = (type: string) => {
     switch (type) {
       case 'sticky':
-        return <div style={stickyFooterStyle}>{footerContent()}</div>
+        return (
+          <div style={{ ...stickyFooterStyle, ...footerStyle }}>
+            {footerContent()}
+          </div>
+        )
       case 'none':
         return <div />
       case 'inline':
       default:
-        return <div>inline footer</div>
+        return <div style={footerStyle}>{footerContent()}</div>
     }
   }
 

@@ -2,13 +2,15 @@ import React from 'react'
 
 export const containerStyle = (isOpen: boolean): React.CSSProperties => {
   return {
-    display: isOpen ? 'block' : 'none',
+    // display: isOpen ? 'block' : 'none',
+    display: 'block',
+    opacity: isOpen ? 1 : 0,
     position: 'fixed',
-    top: 0,
-    left: 0,
-    backgroundColor: '#fff',
+    top: isOpen ? 0 : '-150%',
+    backgroundColor: '#eee',
     paddingTop: '50px',
-    borderRadius: '5px'
+    transition: 'all 0.3s ease',
+    overflow: 'hidden'
   }
 }
 
@@ -19,7 +21,9 @@ export const containerSizeStyle = (
     width: isHalfSize ? '50%' : '100%',
     height: isHalfSize ? '50%' : '100%',
     border: isHalfSize ? '1px solid #ccc' : 'none',
-    transform: isHalfSize ? 'translate(50%, 15%)' : 'translate(0%, 0%)'
+    left: isHalfSize ? '50%' : 0,
+    transform: isHalfSize ? 'translate(-50%, 15%)' : 'translate(0%, 0%)',
+    borderRadius: isHalfSize ? '5px' : '0px'
   }
 }
 

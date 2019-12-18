@@ -11,12 +11,16 @@ const PegasusModal: React.FC<Props> = ({ config }) => {
   )
 
   useEffect(() => {
-    setConfigWithDefaults({ ...configWithDefaults, isOpen: config.isOpen })
+    setConfigWithDefaults({
+      ...configWithDefaults,
+      isOpen: config.isOpen,
+      startScreenIndex: config.startScreenIndex
+    })
 
     if (config.isOpen && configWithDefaults.onOpen) {
       configWithDefaults.onOpen(configWithDefaults.data)
     }
-  }, [config.isOpen])
+  }, [config.isOpen, config.startScreenIndex])
 
   const onClose = (data: {}) => {
     if (typeof configWithDefaults.onClose === 'function') {
@@ -47,6 +51,8 @@ const PegasusModal: React.FC<Props> = ({ config }) => {
       size={configWithDefaults.size}
       footer={configWithDefaults.footer}
       startScreenIndex={configWithDefaults.startScreenIndex}
+      confirmClose={configWithDefaults.confirmClose}
+      cssClasses={configWithDefaults.cssClasses}
     />
   )
 }

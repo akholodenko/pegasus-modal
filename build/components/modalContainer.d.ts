@@ -1,4 +1,5 @@
 import React from 'react';
+import { CssClassesInterface } from '../interfaces/cssClasses';
 declare type Props = {
     screens: any;
     data?: {};
@@ -9,6 +10,8 @@ declare type Props = {
     footer?: string;
     size?: string;
     startScreenIndex?: number;
+    confirmClose?: boolean;
+    cssClasses: CssClassesInterface;
 };
 declare const ModalContainer: React.FC<Props>;
 export default ModalContainer;
