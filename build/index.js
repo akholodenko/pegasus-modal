@@ -45,6 +45,7 @@ var initConfigDefaults = function (config) {
     result.startScreenIndex =
         result.startScreenIndex === undefined ? 0 : result.startScreenIndex;
     result.confirmClose === undefined ? false : result.confirmClose;
+    result.cssClasses === undefined ? {} : result.cssClasses;
     return result;
 };
 
@@ -159,7 +160,7 @@ var closeButtonStyle = {
 
 var CONTAINER_HALF_SIZE = 'half';
 var ModalContainer = function (_a) {
-    var screens = _a.screens, data = _a.data, onClose = _a.onClose, onNext = _a.onNext, onPrev = _a.onPrev, isOpen = _a.isOpen, footer = _a.footer, size = _a.size, startScreenIndex = _a.startScreenIndex, confirmClose = _a.confirmClose;
+    var screens = _a.screens, data = _a.data, onClose = _a.onClose, onNext = _a.onNext, onPrev = _a.onPrev, isOpen = _a.isOpen, footer = _a.footer, size = _a.size, startScreenIndex = _a.startScreenIndex, confirmClose = _a.confirmClose, cssClasses = _a.cssClasses;
     var _b = React.useState(startScreenIndex || 0), currentScreenIndex = _b[0], setCurrentScreenIndex = _b[1];
     var _c = React.useState(data), inputData = _c[0], setInputData = _c[1];
     var _d = React.useState(false), showConfirmClose = _d[0], setShowConfirmClose = _d[1];
@@ -203,7 +204,7 @@ var ModalContainer = function (_a) {
     };
     var isHalfSize = function () { return size === CONTAINER_HALF_SIZE; };
     var currentContainerSizeStyle = containerSizeStyle(isHalfSize());
-    return (React__default.createElement("div", { style: __assign(__assign({}, containerStyle(isOpen)), currentContainerSizeStyle) },
+    return (React__default.createElement("div", { style: __assign(__assign(__assign({}, containerStyle(isOpen)), currentContainerSizeStyle), cssClasses.containerStyle) },
         showConfirmClose && (React__default.createElement(ConfirmClose, { onConfirmClose: onConfirmClose, onCancelClose: onCancelClose })),
         React__default.createElement("div", { onClick: function () {
                 close();
@@ -238,7 +239,7 @@ var PegasusModal = function (_a) {
             configWithDefaults.onPrev(data);
         }
     };
-    return (React__default.createElement(ModalContainer, { data: configWithDefaults.data, screens: configWithDefaults.screens, onClose: onClose, onNext: onNext, onPrev: onPrev, isOpen: !!configWithDefaults.isOpen, size: configWithDefaults.size, footer: configWithDefaults.footer, startScreenIndex: configWithDefaults.startScreenIndex, confirmClose: configWithDefaults.confirmClose }));
+    return (React__default.createElement(ModalContainer, { data: configWithDefaults.data, screens: configWithDefaults.screens, onClose: onClose, onNext: onNext, onPrev: onPrev, isOpen: !!configWithDefaults.isOpen, size: configWithDefaults.size, footer: configWithDefaults.footer, startScreenIndex: configWithDefaults.startScreenIndex, confirmClose: configWithDefaults.confirmClose, cssClasses: configWithDefaults.cssClasses }));
 };
 
 exports.PegasusModal = PegasusModal;

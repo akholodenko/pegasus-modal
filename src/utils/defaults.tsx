@@ -13,6 +13,7 @@ export const initConfigDefaults = (config: ModalConfigInterface) => {
   result.startScreenIndex =
     result.startScreenIndex === undefined ? 0 : result.startScreenIndex
   result.confirmClose === undefined ? false : result.confirmClose
+  result.cssClasses === undefined ? {} : result.cssClasses
 
   return result
 }

@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react'
 export interface ModalConfigInterface {
   isOpen?: boolean
   size?: string
@@ -10,4 +11,9 @@ export interface ModalConfigInterface {
   footer?: string // inline | sticky | none
   startScreenIndex?: number
   confirmClose?: boolean
+  cssClasses: CssClassesInterface
+}
+
+export interface CssClassesInterface {
+  containerStyle?: CSSProperties
 }

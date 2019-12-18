@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Footer from './footer'
 import ConfirmClose from './confirmClose'
+import { CssClassesInterface } from '../interfaces/config'
 import {
   containerStyle,
   containerSizeStyle,
@@ -18,6 +19,7 @@ type Props = {
   size?: string
   startScreenIndex?: number
   confirmClose?: boolean
+  cssClasses: CssClassesInterface
 }
 
 const CONTAINER_HALF_SIZE = 'half'
@@ -32,7 +34,8 @@ const ModalContainer: React.FC<Props> = ({
   footer,
   size,
   startScreenIndex,
-  confirmClose
+  confirmClose,
+  cssClasses
 }) => {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(
     startScreenIndex || 0
@@ -110,7 +113,13 @@ const ModalContainer: React.FC<Props> = ({
   const currentContainerSizeStyle = containerSizeStyle(isHalfSize())
 
   return (
-    <div style={{ ...containerStyle(isOpen), ...currentContainerSizeStyle }}>
+    <div
+      style={{
+        ...containerStyle(isOpen),
+        ...currentContainerSizeStyle,
+        ...cssClasses.containerStyle
+      }}
+    >
       {showConfirmClose && (
         <ConfirmClose
           onConfirmClose={onConfirmClose}
