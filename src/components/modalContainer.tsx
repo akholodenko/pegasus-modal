@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Footer from './footer'
 import ConfirmClose from './confirmClose'
-import { CssClassesInterface } from '../interfaces/config'
+import { CssClassesInterface } from '../interfaces/cssClasses'
 import {
   containerStyle,
   containerSizeStyle,

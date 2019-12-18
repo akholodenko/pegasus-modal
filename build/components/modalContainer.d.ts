@@ -1,5 +1,5 @@
 import React from 'react';
-import { CssClassesInterface } from '../interfaces/config';
+import { CssClassesInterface } from '../interfaces/cssClasses';
 declare type Props = {
     screens: any;
     data?: {};

@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react'
+import { CssClassesInterface } from './cssClasses'
 export interface ModalConfigInterface {
   isOpen?: boolean
   size?: string
@@ -12,8 +12,4 @@ export interface ModalConfigInterface {
   startScreenIndex?: number
   confirmClose?: boolean
   cssClasses: CssClassesInterface
-}
-
-export interface CssClassesInterface {
-  containerStyle?: CSSProperties
 }

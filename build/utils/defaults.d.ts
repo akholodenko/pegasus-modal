@@ -11,5 +11,5 @@ export declare const initConfigDefaults: (config: ModalConfigInterface) => {
     footer?: string | undefined;
     startScreenIndex?: number | undefined;
     confirmClose?: boolean | undefined;
-    cssClasses: import("../interfaces/config").CssClassesInterface;
+    cssClasses: import("../interfaces/cssClasses").CssClassesInterface;
 };
