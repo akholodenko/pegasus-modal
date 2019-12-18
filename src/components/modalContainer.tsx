@@ -130,7 +130,7 @@ const ModalContainer: React.FC<Props> = ({
         onClick={() => {
           close()
         }}
-        style={closeButtonStyle}
+        style={{ ...closeButtonStyle, ...cssClasses.closeButtonStyle }}
       >
         &times;
       </div>
@@ -145,6 +145,7 @@ const ModalContainer: React.FC<Props> = ({
           isHalfSize={isHalfSize()}
           next={next}
           prev={prev}
+          footerStyle={cssClasses.footerStyle}
         />
       }
     </div>

@@ -54,7 +54,7 @@ var buttonStyle = {
 };
 
 var Footer = function (_a) {
-    var type = _a.type, isFirstScreen = _a.isFirstScreen, isLastScreen = _a.isLastScreen, isHalfSize = _a.isHalfSize, next = _a.next, prev = _a.prev;
+    var type = _a.type, isFirstScreen = _a.isFirstScreen, isLastScreen = _a.isLastScreen, isHalfSize = _a.isHalfSize, next = _a.next, prev = _a.prev, footerStyle = _a.footerStyle;
     var stickyFooterStyle = {
         position: 'absolute',
         bottom: isHalfSize ? '0px' : '50px',
@@ -77,12 +77,12 @@ var Footer = function (_a) {
     var footerByType = function (type) {
         switch (type) {
             case 'sticky':
-                return React.createElement("div", { style: stickyFooterStyle }, footerContent());
+                return (React.createElement("div", { style: __assign(__assign({}, stickyFooterStyle), footerStyle) }, footerContent()));
             case 'none':
                 return React.createElement("div", null);
             case 'inline':
             default:
-                return React.createElement("div", null, "inline footer");
+                return React.createElement("div", { style: footerStyle }, footerContent());
         }
     };
     return footerByType(type);
@@ -201,11 +201,11 @@ var ModalContainer = function (_a) {
         showConfirmClose && (React.createElement(ConfirmClose, { onConfirmClose: onConfirmClose, onCancelClose: onCancelClose })),
         React.createElement("div", { onClick: function () {
                 close();
-            }, style: closeButtonStyle }, "\u00D7"),
+            }, style: __assign(__assign({}, closeButtonStyle), cssClasses.closeButtonStyle) }, "\u00D7"),
         screens &&
             screens.length &&
             renderScreen(screens[currentScreenIndex], currentScreenIndex),
-        React.createElement(Footer, { type: footer || 'inline', isFirstScreen: isFirstScreen(currentScreenIndex), isLastScreen: isLastScreen(currentScreenIndex), isHalfSize: isHalfSize(), next: next, prev: prev })));
+        React.createElement(Footer, { type: footer || 'inline', isFirstScreen: isFirstScreen(currentScreenIndex), isLastScreen: isLastScreen(currentScreenIndex), isHalfSize: isHalfSize(), next: next, prev: prev, footerStyle: cssClasses.footerStyle })));
 };
 
 var PegasusModal = function (_a) {
