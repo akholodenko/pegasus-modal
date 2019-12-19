@@ -1,7 +1,3 @@
-import React from 'react';
 import { ModalConfigInterface } from './interfaces/config';
-declare type Props = {
-    config: ModalConfigInterface;
-};
-declare const PegasusModal: React.FC<Props>;
+import PegasusModal from './components/pegasusModal';
 export { PegasusModal, ModalConfigInterface };
