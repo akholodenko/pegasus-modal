@@ -50,5 +50,8 @@
   },
   "dependencies": {
     "watch": "^1.0.2"
+  },
+  "resolutions": {
+    "**/fsevents": "^1.2.9"
   }
 }
