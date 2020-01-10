@@ -245,10 +245,8 @@ var PegasusModal = function (_a) {
 
 var PegasusForm = function (_a) {
     var config = _a.config;
-    if (!config) {
-        console.log('no config');
-    }
-    return React__default.createElement("div", null, "form component");
+    console.log('config', config);
+    return React__default.createElement("div", null, "Form component w/config");
 };
 
 exports.PegasusForm = PegasusForm;

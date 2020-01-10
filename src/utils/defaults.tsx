@@ -1,4 +1,4 @@
-import { ModalConfigInterface } from '../interfaces/config'
+import { ModalConfigInterface } from '../interfaces/modalConfig'
 
 export const initConfigDefaults = (config: ModalConfigInterface) => {
   let result = { ...config }

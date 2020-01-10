@@ -1,4 +1,4 @@
-import { ModalConfigInterface } from '../interfaces/config';
+import { ModalConfigInterface } from '../interfaces/modalConfig';
 export declare const initConfigDefaults: (config: ModalConfigInterface) => {
     isOpen?: boolean | undefined;
     size?: string | undefined;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ModalConfigInterface } from '../interfaces/config';
+import { ModalConfigInterface } from '../interfaces/modalConfig';
 declare type Props = {
     config: ModalConfigInterface;
 };

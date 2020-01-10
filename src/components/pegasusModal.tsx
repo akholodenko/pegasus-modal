@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ModalConfigInterface } from '../interfaces/config'
+import { ModalConfigInterface } from '../interfaces/modalConfig'
 import { initConfigDefaults } from '../utils/defaults'
 import ModalContainer from './modalContainer'
 
