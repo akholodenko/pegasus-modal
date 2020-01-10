@@ -236,5 +236,13 @@ var PegasusModal = function (_a) {
     return (React.createElement(ModalContainer, { data: configWithDefaults.data, screens: configWithDefaults.screens, onClose: onClose, onNext: onNext, onPrev: onPrev, isOpen: !!configWithDefaults.isOpen, size: configWithDefaults.size, footer: configWithDefaults.footer, startScreenIndex: configWithDefaults.startScreenIndex, confirmClose: configWithDefaults.confirmClose, cssClasses: configWithDefaults.cssClasses }));
 };
 
-export { PegasusModal };
+var PegasusForm = function (_a) {
+    var config = _a.config;
+    if (!config) {
+        console.log('no config');
+    }
+    return React.createElement("div", null, "form component");
+};
+
+export { PegasusForm, PegasusModal };
 //# sourceMappingURL=index.esm.js.map
