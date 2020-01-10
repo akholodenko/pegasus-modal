@@ -108,7 +108,8 @@ var buttonContainerStyle = {
     transform: 'translate(-50%,-50%)',
     position: 'absolute',
     top: '50%',
-    left: '50%'
+    left: '50%',
+    width: '220px'
 };
 var textLabelStyle = {
     marginBottom: '20px'
