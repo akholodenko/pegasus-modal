@@ -242,5 +242,17 @@ var PegasusForm = function (_a) {
     return React.createElement("div", null, "Form component w/config");
 };
 
-export { PegasusForm, PegasusModal };
+var FormElementType;
+(function (FormElementType) {
+    FormElementType["Text"] = "TEXT";
+    FormElementType["Password"] = "PASSWORD";
+    FormElementType["Email"] = "EMAIL";
+    FormElementType["Phone"] = "PHONE";
+    FormElementType["RadioButton"] = "RADIO";
+    FormElementType["Checkbox"] = "CHECK";
+    FormElementType["TextArea"] = "TEXTAREA";
+})(FormElementType || (FormElementType = {}));
+var FormElementType$1 = FormElementType;
+
+export { FormElementType$1 as FormElementType, PegasusForm, PegasusModal };
 //# sourceMappingURL=index.esm.js.map

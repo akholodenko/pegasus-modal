@@ -249,6 +249,19 @@ var PegasusForm = function (_a) {
     return React__default.createElement("div", null, "Form component w/config");
 };
 
+var FormElementType;
+(function (FormElementType) {
+    FormElementType["Text"] = "TEXT";
+    FormElementType["Password"] = "PASSWORD";
+    FormElementType["Email"] = "EMAIL";
+    FormElementType["Phone"] = "PHONE";
+    FormElementType["RadioButton"] = "RADIO";
+    FormElementType["Checkbox"] = "CHECK";
+    FormElementType["TextArea"] = "TEXTAREA";
+})(FormElementType || (FormElementType = {}));
+var FormElementType$1 = FormElementType;
+
+exports.FormElementType = FormElementType$1;
 exports.PegasusForm = PegasusForm;
 exports.PegasusModal = PegasusModal;
 //# sourceMappingURL=index.js.map
