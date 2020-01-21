@@ -238,8 +238,12 @@ var PegasusModal = function (_a) {
 
 var PegasusForm = function (_a) {
     var config = _a.config;
-    console.log('config', config);
-    return React.createElement("div", null, "Form component w/config");
+    var components = config.components;
+    console.log('config.components', components);
+    return (React.createElement("div", null,
+        "Form component w/config",
+        components.map(function (component, index) { return (React.createElement("div", { key: index },
+            React.createElement("input", { id: component.id, type: component.formType, placeholder: component.placeholder, className: component.cssClass }))); })));
 };
 
 var FormElementType;
