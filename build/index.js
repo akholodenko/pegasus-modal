@@ -243,14 +243,10 @@ var PegasusModal = function (_a) {
     return (React__default.createElement(ModalContainer, { data: configWithDefaults.data, screens: configWithDefaults.screens, onClose: onClose, onNext: onNext, onPrev: onPrev, isOpen: !!configWithDefaults.isOpen, size: configWithDefaults.size, footer: configWithDefaults.footer, startScreenIndex: configWithDefaults.startScreenIndex, confirmClose: configWithDefaults.confirmClose, cssClasses: configWithDefaults.cssClasses }));
 };
 
-var PegasusForm = function (_a) {
+var TextInputField = function (_a) {
     var config = _a.config;
-    var components = config.components;
-    console.log('config.components', components);
-    return (React__default.createElement("div", null,
-        "Form component w/config",
-        components.map(function (component, index) { return (React__default.createElement("div", { key: index },
-            React__default.createElement("input", { id: component.id, type: component.formType, placeholder: component.placeholder, className: component.cssClass }))); })));
+    console.log(config);
+    return (React__default.createElement("input", { id: config.id, type: config.formType, placeholder: config.placeholder, className: config.cssClass }));
 };
 
 var FormElementType;
@@ -264,6 +260,29 @@ var FormElementType;
     FormElementType["TextArea"] = "TEXTAREA";
 })(FormElementType || (FormElementType = {}));
 var FormElementType$1 = FormElementType;
+
+var PegasusForm = function (_a) {
+    var config = _a.config;
+    var components = config.components;
+    console.log('config.components', components);
+    var renderFormComponents = function (component, index) {
+        var element = null;
+        switch (component.formType) {
+            case FormElementType$1.Text:
+                element = React__default.createElement(TextInputField, { config: component });
+                break;
+            default:
+                element = React__default.createElement(TextInputField, { config: component });
+                break;
+        }
+        return React__default.createElement("div", { key: index }, element);
+    };
+    return (React__default.createElement("div", null,
+        "Form component w/config",
+        components.map(function (component, index) {
+            return renderFormComponents(component, index);
+        })));
+};
 
 exports.FormElementType = FormElementType$1;
 exports.PegasusForm = PegasusForm;
