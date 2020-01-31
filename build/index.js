@@ -244,44 +244,68 @@ var PegasusModal = function (_a) {
 };
 
 var TextInputField = function (_a) {
-    var config = _a.config;
+    var config = _a.config, onChange = _a.onChange;
     var _b = React.useState(config.value || ''), inputValue = _b[0], setInputValue = _b[1];
     var handleChange = function (value) {
         setInputValue(value);
-        if (config.onChange) {
-            config.onChange(value);
+        if (onChange) {
+            onChange(config.id, value);
         }
     };
     return (React__default.createElement("span", null,
-        config.isValid === false && React__default.createElement("div", null, "invalid"),
-        React__default.createElement("input", { id: config.id, type: config.formType, placeholder: config.placeholder, className: config.cssClass, value: inputValue, onChange: function (event) { return handleChange(event.target.value); } })));
+        config.isValid === false && React__default.createElement("div", null, "invalid input"),
+        React__default.createElement("input", { id: config.id, name: config.name, type: config.formType, placeholder: config.placeholder, className: config.cssClass, value: inputValue, onChange: function (event) { return handleChange(event.target.value); }, autoComplete: "none" })));
+};
+
+var TextareaField = function (_a) {
+    var config = _a.config, onChange = _a.onChange;
+    var _b = React.useState(config.value || ''), inputValue = _b[0], setInputValue = _b[1];
+    var handleChange = function (value) {
+        setInputValue(value);
+        if (onChange) {
+            onChange(config.id, value);
+        }
+    };
+    return (React__default.createElement("span", null,
+        config.isValid === false && React__default.createElement("div", null, "invalid input"),
+        React__default.createElement("textarea", { id: config.id, name: config.name, className: config.cssClass, placeholder: config.placeholder, autoComplete: "none", onChange: function (event) { return handleChange(event.target.value); }, value: inputValue })));
 };
 
 var FormElementType;
 (function (FormElementType) {
-    FormElementType["Text"] = "TEXT";
-    FormElementType["Password"] = "PASSWORD";
-    FormElementType["Email"] = "EMAIL";
-    FormElementType["Phone"] = "PHONE";
-    FormElementType["RadioButton"] = "RADIO";
-    FormElementType["Checkbox"] = "CHECK";
-    FormElementType["TextArea"] = "TEXTAREA";
+    FormElementType["Text"] = "text";
+    FormElementType["Password"] = "password";
+    FormElementType["Email"] = "email";
+    FormElementType["Phone"] = "tel";
+    FormElementType["Number"] = "number";
+    FormElementType["RadioButton"] = "radio";
+    FormElementType["Checkbox"] = "checkbox";
+    FormElementType["File"] = "file";
+    FormElementType["TextArea"] = "textarea";
 })(FormElementType || (FormElementType = {}));
 var FormElementType$1 = FormElementType;
 
 var PegasusForm = function (_a) {
     var config = _a.config;
-    var components = config.components;
-    console.log('config.components', components);
+    var components = config.components, onChange = config.onChange;
+    var _b = React.useState({}), formValues = _b[0], setFormValues = _b[1];
+    React.useEffect(function () {
+        if (onChange) {
+            onChange(formValues);
+        }
+    }, [formValues]);
+    var handleChange = function (index, value) {
+        var _a;
+        setFormValues(__assign(__assign({}, formValues), (_a = {}, _a[index] = value, _a)));
+    };
     var renderFormComponents = function (component, index) {
         var element = null;
         switch (component.formType) {
             case FormElementType$1.Text:
-                element = React__default.createElement(TextInputField, { config: component });
+                element = React__default.createElement(TextInputField, { config: component, onChange: handleChange });
                 break;
-            default:
-                element = React__default.createElement(TextInputField, { config: component });
-                break;
+            case FormElementType$1.TextArea:
+                element = React__default.createElement(TextareaField, { config: component, onChange: handleChange });
         }
         return React__default.createElement("div", { key: index }, element);
     };

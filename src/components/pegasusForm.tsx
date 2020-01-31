@@ -1,14 +1,25 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import FormConfigInterface from '../interfaces/formConfig'
 import FormComponentConfig from '../interfaces/formComponentConfig'
 import TextInputField from './form/textInputField'
+import Textarea from './form/textareaField'
 import FormElementType from '../utils/formElementType'
 
 type Props = { config: FormConfigInterface }
 
 const PegasusForm: React.FC<Props> = ({ config }) => {
-  const { components } = config
-  console.log('config.components', components)
+  const { components, onChange } = config
+  const [formValues, setFormValues] = useState({})
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(formValues)
+    }
+  }, [formValues])
+
+  const handleChange = (index: any, value: any) => {
+    setFormValues({ ...formValues, [index]: value })
+  }
 
   const renderFormComponents = (
     component: FormComponentConfig,
@@ -17,11 +28,10 @@ const PegasusForm: React.FC<Props> = ({ config }) => {
     let element = null
     switch (component.formType) {
       case FormElementType.Text:
-        element = <TextInputField config={component} />
+        element = <TextInputField config={component} onChange={handleChange} />
         break
-      default:
-        element = <TextInputField config={component} />
-        break
+      case FormElementType.TextArea:
+        element = <Textarea config={component} onChange={handleChange} />
     }
 
     return <div key={index}>{element}</div>

@@ -1,10 +1,12 @@
 declare enum FormElementType {
-    Text = "TEXT",
-    Password = "PASSWORD",
-    Email = "EMAIL",
-    Phone = "PHONE",
-    RadioButton = "RADIO",
-    Checkbox = "CHECK",
-    TextArea = "TEXTAREA"
+    Text = "text",
+    Password = "password",
+    Email = "email",
+    Phone = "tel",
+    Number = "number",
+    RadioButton = "radio",
+    Checkbox = "checkbox",
+    File = "file",
+    TextArea = "textarea"
 }
 export default FormElementType;

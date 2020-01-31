@@ -3,7 +3,7 @@ import FormComponentConfig from '../../interfaces/formComponentConfig'
 
 type Props = { config: FormComponentConfig; onChange: Function }
 
-const TextInputField: React.FC<Props> = ({ config, onChange }) => {
+const TextareaField: React.FC<Props> = ({ config, onChange }) => {
   const [inputValue, setInputValue] = useState(config.value || '')
 
   const handleChange = (value: string) => {
@@ -17,18 +17,17 @@ const TextInputField: React.FC<Props> = ({ config, onChange }) => {
   return (
     <span>
       {config.isValid === false && <div>invalid input</div>}
-      <input
+      <textarea
         id={config.id}
         name={config.name}
-        type={config.formType}
-        placeholder={config.placeholder}
         className={config.cssClass}
-        value={inputValue}
-        onChange={event => handleChange(event.target.value)}
+        placeholder={config.placeholder}
         autoComplete="none"
-      />
+        onChange={event => handleChange(event.target.value)}
+        value={inputValue}
+      ></textarea>
     </span>
   )
 }
 
-export default TextInputField
+export default TextareaField

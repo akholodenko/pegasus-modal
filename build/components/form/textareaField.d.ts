@@ -4,5 +4,5 @@ declare type Props = {
     config: FormComponentConfig;
     onChange: Function;
 };
-declare const TextInputField: React.FC<Props>;
-export default TextInputField;
+declare const TextareaField: React.FC<Props>;
+export default TextareaField;
