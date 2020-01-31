@@ -5,6 +5,9 @@ interface FormComponentConfig {
   formType: FormElementType
   placeholder?: string
   cssClass?: string
+  value?: string
+  onChange?: Function
+  isValid?: boolean
 }
 
 export default FormComponentConfig

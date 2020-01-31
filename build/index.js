@@ -245,8 +245,16 @@ var PegasusModal = function (_a) {
 
 var TextInputField = function (_a) {
     var config = _a.config;
-    console.log(config);
-    return (React__default.createElement("input", { id: config.id, type: config.formType, placeholder: config.placeholder, className: config.cssClass }));
+    var _b = React.useState(config.value || ''), inputValue = _b[0], setInputValue = _b[1];
+    var handleChange = function (value) {
+        setInputValue(value);
+        if (config.onChange) {
+            config.onChange(value);
+        }
+    };
+    return (React__default.createElement("span", null,
+        config.isValid === false && React__default.createElement("div", null, "invalid"),
+        React__default.createElement("input", { id: config.id, type: config.formType, placeholder: config.placeholder, className: config.cssClass, value: inputValue, onChange: function (event) { return handleChange(event.target.value); } })));
 };
 
 var FormElementType;
