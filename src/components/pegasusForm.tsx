@@ -28,6 +28,9 @@ const PegasusForm: React.FC<Props> = ({ config }) => {
     let element = null
     switch (component.formType) {
       case FormElementType.Text:
+      case FormElementType.Email:
+      case FormElementType.Password:
+      case FormElementType.Phone:
         element = <TextInputField config={component} onChange={handleChange} />
         break
       case FormElementType.TextArea:

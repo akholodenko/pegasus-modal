@@ -243,6 +243,23 @@ var PegasusModal = function (_a) {
     return (React__default.createElement(ModalContainer, { data: configWithDefaults.data, screens: configWithDefaults.screens, onClose: onClose, onNext: onNext, onPrev: onPrev, isOpen: !!configWithDefaults.isOpen, size: configWithDefaults.size, footer: configWithDefaults.footer, startScreenIndex: configWithDefaults.startScreenIndex, confirmClose: configWithDefaults.confirmClose, cssClasses: configWithDefaults.cssClasses }));
 };
 
+var inputStyle = {
+    boxShadow: 'inset 0 1px 3px 0 rgba(160,160,160,0.5)',
+    borderRadius: '2px',
+    border: 'none',
+    minHeight: '45px',
+    marginBottom: '20px',
+    display: 'block',
+    width: '100%',
+    height: '34px',
+    padding: '6px 12px',
+    fontSize: '14px',
+    lineHeight: '1.45',
+    color: '#555',
+    backgroundColor: '#fff',
+    backgroundImage: 'none'
+};
+
 var TextInputField = function (_a) {
     var config = _a.config, onChange = _a.onChange;
     var _b = React.useState(config.value || ''), inputValue = _b[0], setInputValue = _b[1];
@@ -254,7 +271,7 @@ var TextInputField = function (_a) {
     };
     return (React__default.createElement("span", null,
         config.isValid === false && React__default.createElement("div", null, "invalid input"),
-        React__default.createElement("input", { id: config.id, name: config.name, type: config.formType, placeholder: config.placeholder, className: config.cssClass, value: inputValue, onChange: function (event) { return handleChange(event.target.value); }, autoComplete: "none" })));
+        React__default.createElement("input", { id: config.id, name: config.name, type: config.formType, placeholder: config.placeholder, className: config.cssClass, value: inputValue, onChange: function (event) { return handleChange(event.target.value); }, autoComplete: "none", style: inputStyle })));
 };
 
 var TextareaField = function (_a) {
@@ -302,6 +319,9 @@ var PegasusForm = function (_a) {
         var element = null;
         switch (component.formType) {
             case FormElementType$1.Text:
+            case FormElementType$1.Email:
+            case FormElementType$1.Password:
+            case FormElementType$1.Phone:
                 element = React__default.createElement(TextInputField, { config: component, onChange: handleChange });
                 break;
             case FormElementType$1.TextArea:

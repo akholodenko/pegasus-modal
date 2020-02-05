@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import FormComponentConfig from '../../interfaces/formComponentConfig'
 
+import { inputStyle } from './field.css'
+
 type Props = { config: FormComponentConfig; onChange: Function }
 
 const TextInputField: React.FC<Props> = ({ config, onChange }) => {
@@ -26,6 +28,7 @@ const TextInputField: React.FC<Props> = ({ config, onChange }) => {
         value={inputValue}
         onChange={event => handleChange(event.target.value)}
         autoComplete="none"
+        style={inputStyle}
       />
     </span>
   )
