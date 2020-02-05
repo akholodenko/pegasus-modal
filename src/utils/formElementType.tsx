@@ -7,7 +7,8 @@ enum FormElementType {
   RadioButton = 'radio',
   Checkbox = 'checkbox',
   File = 'file',
-  TextArea = 'textarea'
+  TextArea = 'textarea',
+  Button = 'button'
 }
 
 export default FormElementType

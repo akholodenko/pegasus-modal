@@ -3,6 +3,7 @@ import FormConfigInterface from '../interfaces/formConfig'
 import FormComponentConfig from '../interfaces/formComponentConfig'
 import TextInputField from './form/textInputField'
 import Textarea from './form/textareaField'
+import Button from './form/buttonField'
 import FormElementType from '../utils/formElementType'
 
 type Props = { config: FormConfigInterface }
@@ -35,6 +36,10 @@ const PegasusForm: React.FC<Props> = ({ config }) => {
         break
       case FormElementType.TextArea:
         element = <Textarea config={component} onChange={handleChange} />
+        break
+      case FormElementType.Button:
+        element = <Button config={component} formValues={formValues} />
+        break
     }
 
     return <div key={index}>{element}</div>

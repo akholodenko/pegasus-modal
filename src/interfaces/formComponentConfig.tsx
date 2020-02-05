@@ -7,9 +7,10 @@ interface FormComponentConfig {
   placeholder?: string
   cssClass?: string
   value?: string
-  onChange?: Function
   isValid?: boolean
   index?: number
+  onChange?: Function
+  onClick?: Function
 }
 
 export default FormComponentConfig

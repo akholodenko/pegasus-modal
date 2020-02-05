@@ -281,6 +281,24 @@ var TextareaField = function (_a) {
         React.createElement("textarea", { id: config.id, name: config.name, className: config.cssClass, placeholder: config.placeholder, autoComplete: "none", onChange: function (event) { return handleChange(event.target.value); }, value: inputValue })));
 };
 
+var Button = function (_a) {
+    //   const [inputValue, setInputValue] = useState(config.value || '')
+    var config = _a.config, formValues = _a.formValues;
+    //   const handleChange = (value: string) => {
+    //     setInputValue(value)
+    //     if (onChange) {
+    //       onChange(config.id, value)
+    //     }
+    //   }
+    var handleClick = function () {
+        if (config.onClick) {
+            config.onClick(formValues);
+        }
+    };
+    return (React.createElement("span", null,
+        React.createElement("button", { id: config.id, name: config.name, className: config.cssClass, onClick: function () { return handleClick(); } }, config.value)));
+};
+
 var FormElementType;
 (function (FormElementType) {
     FormElementType["Text"] = "text";
@@ -292,6 +310,7 @@ var FormElementType;
     FormElementType["Checkbox"] = "checkbox";
     FormElementType["File"] = "file";
     FormElementType["TextArea"] = "textarea";
+    FormElementType["Button"] = "button";
 })(FormElementType || (FormElementType = {}));
 var FormElementType$1 = FormElementType;
 
@@ -319,6 +338,10 @@ var PegasusForm = function (_a) {
                 break;
             case FormElementType$1.TextArea:
                 element = React.createElement(TextareaField, { config: component, onChange: handleChange });
+                break;
+            case FormElementType$1.Button:
+                element = React.createElement(Button, { config: component, formValues: formValues });
+                break;
         }
         return React.createElement("div", { key: index }, element);
     };
