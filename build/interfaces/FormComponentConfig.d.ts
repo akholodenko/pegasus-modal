@@ -8,6 +8,7 @@ interface FormComponentConfig {
     value?: string;
     isValid?: boolean;
     index?: number;
+    onClickEventName?: string;
     onChange?: Function;
     onClick?: Function;
 }

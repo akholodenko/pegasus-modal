@@ -282,17 +282,11 @@ var TextareaField = function (_a) {
 };
 
 var Button = function (_a) {
-    //   const [inputValue, setInputValue] = useState(config.value || '')
     var config = _a.config, formValues = _a.formValues;
-    //   const handleChange = (value: string) => {
-    //     setInputValue(value)
-    //     if (onChange) {
-    //       onChange(config.id, value)
-    //     }
-    //   }
     var handleClick = function () {
         if (config.onClick) {
             config.onClick(formValues);
+            //   window.dispatchEvent(new Event('form-button-clicked'))
         }
     };
     return (React.createElement("span", null,
@@ -316,8 +310,9 @@ var FormElementType$1 = FormElementType;
 
 var PegasusForm = function (_a) {
     var config = _a.config;
-    var components = config.components, onChange = config.onChange;
+    var container = config.container, components = config.components, onChange = config.onChange;
     var _b = useState({}), formValues = _b[0], setFormValues = _b[1];
+    var containerId = container && container.id ? container.id : "formContainer" + Date.now();
     useEffect(function () {
         if (onChange) {
             onChange(formValues);
@@ -345,7 +340,7 @@ var PegasusForm = function (_a) {
         }
         return React.createElement("div", { key: index }, element);
     };
-    return (React.createElement("div", null,
+    return (React.createElement("div", { id: container.id || containerId },
         "Form component w/config",
         components.map(function (component, index) {
             return renderFormComponents(component, index);

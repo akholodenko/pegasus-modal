@@ -4,19 +4,10 @@ import FormComponentConfig from '../../interfaces/formComponentConfig'
 type Props = { config: FormComponentConfig; formValues: any }
 
 const Button: React.FC<Props> = ({ config, formValues }) => {
-  //   const [inputValue, setInputValue] = useState(config.value || '')
-
-  //   const handleChange = (value: string) => {
-  //     setInputValue(value)
-
-  //     if (onChange) {
-  //       onChange(config.id, value)
-  //     }
-  //   }
-
   const handleClick = () => {
     if (config.onClick) {
       config.onClick(formValues)
+      //   window.dispatchEvent(new Event('form-button-clicked'))
     }
   }
 

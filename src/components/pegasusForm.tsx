@@ -9,8 +9,10 @@ import FormElementType from '../utils/formElementType'
 type Props = { config: FormConfigInterface }
 
 const PegasusForm: React.FC<Props> = ({ config }) => {
-  const { components, onChange } = config
+  const { container, components, onChange } = config
   const [formValues, setFormValues] = useState({})
+  const containerId =
+    container && container.id ? container.id : `formContainer${Date.now()}`
 
   useEffect(() => {
     if (onChange) {
@@ -46,7 +48,7 @@ const PegasusForm: React.FC<Props> = ({ config }) => {
   }
 
   return (
-    <div>
+    <div id={container.id || containerId}>
       Form component w/config
       {components.map((component, index) =>
         renderFormComponents(component, index)
