@@ -8,6 +8,7 @@ declare enum FormElementType {
     Checkbox = "checkbox",
     File = "file",
     TextArea = "textarea",
+    DropDown = "select",
     Button = "button"
 }
 export default FormElementType;

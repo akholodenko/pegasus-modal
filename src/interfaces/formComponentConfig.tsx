@@ -9,7 +9,7 @@ interface FormComponentConfig {
   value?: string
   isValid?: boolean
   index?: number
-  onClickEventName?: string
+  options?: { value: string | number; label: string | number }[] | undefined
   onChange?: Function
   onClick?: Function
 }

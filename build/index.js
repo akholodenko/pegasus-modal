@@ -311,9 +311,27 @@ var FormElementType;
     FormElementType["Checkbox"] = "checkbox";
     FormElementType["File"] = "file";
     FormElementType["TextArea"] = "textarea";
+    FormElementType["DropDown"] = "select";
     FormElementType["Button"] = "button";
 })(FormElementType || (FormElementType = {}));
 var FormElementType$1 = FormElementType;
+
+var SelectField = function (_a) {
+    var config = _a.config, onChange = _a.onChange;
+    var _b = React.useState(config.value || ''), inputValue = _b[0], setInputValue = _b[1];
+    var handleChange = function (value) {
+        setInputValue(value);
+        if (onChange) {
+            onChange(config.id, value);
+        }
+    };
+    return (React__default.createElement("span", null,
+        config.isValid === false && React__default.createElement("div", null, "invalid input"),
+        React__default.createElement("select", { id: config.id, name: config.name, placeholder: config.placeholder, className: config.cssClass, value: inputValue, onChange: function (event) { return handleChange(event.target.value); }, autoComplete: "none", style: inputStyle },
+            config.placeholder && React__default.createElement("option", { value: "" }, config.placeholder),
+            config.options &&
+                config.options.map(function (option, index) { return (React__default.createElement("option", { key: index, value: option.value }, option.label)); }))));
+};
 
 var PegasusForm = function (_a) {
     var config = _a.config;
@@ -340,6 +358,9 @@ var PegasusForm = function (_a) {
                 break;
             case FormElementType$1.TextArea:
                 element = React__default.createElement(TextareaField, { config: component, onChange: handleChange });
+                break;
+            case FormElementType$1.DropDown:
+                element = React__default.createElement(SelectField, { config: component, onChange: handleChange });
                 break;
             case FormElementType$1.Button:
                 element = React__default.createElement(Button, { config: component, formValues: formValues });
