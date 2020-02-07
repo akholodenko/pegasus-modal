@@ -6,6 +6,7 @@ import Textarea from './form/textareaField'
 import Button from './form/buttonField'
 import FormElementType from '../utils/formElementType'
 import SelectField from './form/selectField'
+import CheckboxField from './form/checkboxField'
 
 type Props = { config: FormConfigInterface }
 
@@ -45,6 +46,9 @@ const PegasusForm: React.FC<Props> = ({ config }) => {
         break
       case FormElementType.Button:
         element = <Button config={component} formValues={formValues} />
+        break
+      case FormElementType.Checkbox:
+        element = <CheckboxField config={component} onChange={handleChange} />
         break
     }
 

@@ -333,6 +333,21 @@ var SelectField = function (_a) {
                 config.options.map(function (option, index) { return (React__default.createElement("option", { key: index, value: option.value }, option.label)); }))));
 };
 
+var CheckboxField = function (_a) {
+    var config = _a.config, onChange = _a.onChange;
+    var _b = React.useState(config.value || false), inputValue = _b[0], setInputValue = _b[1];
+    var handleChange = function (checkbox) {
+        setInputValue(checkbox.checked);
+        if (onChange) {
+            onChange(config.id, checkbox.checked);
+        }
+    };
+    return (React__default.createElement("span", null,
+        config.isValid === false && React__default.createElement("div", null, "invalid input"),
+        React__default.createElement("input", { id: config.id, name: config.name, type: config.formType, placeholder: config.placeholder, className: config.cssClass, onChange: function (event) { return handleChange(event.target); }, checked: !!inputValue }),
+        React__default.createElement("label", { htmlFor: config.id }, config.label)));
+};
+
 var PegasusForm = function (_a) {
     var config = _a.config;
     var container = config.container, components = config.components, onChange = config.onChange;
@@ -364,6 +379,9 @@ var PegasusForm = function (_a) {
                 break;
             case FormElementType$1.Button:
                 element = React__default.createElement(Button, { config: component, formValues: formValues });
+                break;
+            case FormElementType$1.Checkbox:
+                element = React__default.createElement(CheckboxField, { config: component, onChange: handleChange });
                 break;
         }
         return React__default.createElement("div", { key: index }, element);
