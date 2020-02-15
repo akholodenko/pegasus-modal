@@ -6,7 +6,7 @@ interface FormComponentConfig {
   formType: FormElementType
   placeholder?: string
   cssClass?: string
-  value?: string
+  value?: any | undefined
   label?: string
   isValid?: boolean
   index?: number

@@ -278,7 +278,7 @@ var TextareaField = function (_a) {
     };
     return (React.createElement("span", null,
         config.isValid === false && React.createElement("div", null, "invalid input"),
-        React.createElement("textarea", { id: config.id, name: config.name, className: config.cssClass, placeholder: config.placeholder, autoComplete: "none", onChange: function (event) { return handleChange(event.target.value); }, value: inputValue })));
+        React.createElement("textarea", { id: config.id, name: config.name, className: config.cssClass, style: inputStyle, placeholder: config.placeholder, autoComplete: "none", onChange: function (event) { return handleChange(event.target.value); }, value: inputValue })));
 };
 
 var Button = function (_a) {
