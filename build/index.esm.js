@@ -341,6 +341,24 @@ var CheckboxField = function (_a) {
         React.createElement("label", { htmlFor: config.id }, config.label)));
 };
 
+var RadionButtons = function (_a) {
+    var config = _a.config, onChange = _a.onChange;
+    var _b = useState(config.value || ''), inputValue = _b[0], setInputValue = _b[1];
+    var handleChange = function (value) {
+        setInputValue(value);
+        if (onChange) {
+            onChange(config.name, value);
+        }
+    };
+    return (React.createElement("span", null,
+        config.isValid === false && React.createElement("div", null, "invalid input"),
+        config.options &&
+            config.options.map(function (option, index) { return (React.createElement("span", { key: index },
+                React.createElement("input", { type: "radio", id: option.id, name: "gender", value: option.value, onChange: function (event) { return handleChange(event.target.value); }, checked: inputValue === option.value }),
+                React.createElement("label", { htmlFor: option.id }, option.label),
+                React.createElement("br", null))); })));
+};
+
 var PegasusForm = function (_a) {
     var config = _a.config;
     var container = config.container, components = config.components, onChange = config.onChange;
@@ -375,6 +393,9 @@ var PegasusForm = function (_a) {
                 break;
             case FormElementType$1.Checkbox:
                 element = React.createElement(CheckboxField, { config: component, onChange: handleChange });
+                break;
+            case FormElementType$1.RadioButton:
+                element = React.createElement(RadionButtons, { config: component, onChange: handleChange });
                 break;
         }
         return React.createElement("div", { key: index }, element);

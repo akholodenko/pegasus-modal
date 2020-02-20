@@ -348,6 +348,24 @@ var CheckboxField = function (_a) {
         React__default.createElement("label", { htmlFor: config.id }, config.label)));
 };
 
+var RadionButtons = function (_a) {
+    var config = _a.config, onChange = _a.onChange;
+    var _b = React.useState(config.value || ''), inputValue = _b[0], setInputValue = _b[1];
+    var handleChange = function (value) {
+        setInputValue(value);
+        if (onChange) {
+            onChange(config.name, value);
+        }
+    };
+    return (React__default.createElement("span", null,
+        config.isValid === false && React__default.createElement("div", null, "invalid input"),
+        config.options &&
+            config.options.map(function (option, index) { return (React__default.createElement("span", { key: index },
+                React__default.createElement("input", { type: "radio", id: option.id, name: "gender", value: option.value, onChange: function (event) { return handleChange(event.target.value); }, checked: inputValue === option.value }),
+                React__default.createElement("label", { htmlFor: option.id }, option.label),
+                React__default.createElement("br", null))); })));
+};
+
 var PegasusForm = function (_a) {
     var config = _a.config;
     var container = config.container, components = config.components, onChange = config.onChange;
@@ -382,6 +400,9 @@ var PegasusForm = function (_a) {
                 break;
             case FormElementType$1.Checkbox:
                 element = React__default.createElement(CheckboxField, { config: component, onChange: handleChange });
+                break;
+            case FormElementType$1.RadioButton:
+                element = React__default.createElement(RadionButtons, { config: component, onChange: handleChange });
                 break;
         }
         return React__default.createElement("div", { key: index }, element);

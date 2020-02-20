@@ -7,6 +7,7 @@ import Button from './form/buttonField'
 import FormElementType from '../utils/formElementType'
 import SelectField from './form/selectField'
 import CheckboxField from './form/checkboxField'
+import RadionButtons from './form/radioButtonsField'
 
 type Props = { config: FormConfigInterface }
 
@@ -49,6 +50,9 @@ const PegasusForm: React.FC<Props> = ({ config }) => {
         break
       case FormElementType.Checkbox:
         element = <CheckboxField config={component} onChange={handleChange} />
+        break
+      case FormElementType.RadioButton:
+        element = <RadionButtons config={component} onChange={handleChange} />
         break
     }
 
